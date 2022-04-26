@@ -22,6 +22,8 @@ const Login = () => {
           type="text"
           id="password-input"
           data-testid="password-input"
+          value={ password }
+          onChange={ ({ target }) => setPassword(target.value) }
         />
       </label>
       <button
