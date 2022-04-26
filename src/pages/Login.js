@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isDisabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    const emailRegex = /\S+@\S+\.com/;
+    const numChar = 6;
+    const isValid = emailRegex.test(email) && password.trim().length > numChar;
+    setDisabled(!isValid);
+  }, [email, password]);
 
   return (
     <form>
@@ -19,7 +27,7 @@ const Login = () => {
       <label htmlFor="password-input">
         password
         <input
-          type="text"
+          type="password"
           id="password-input"
           data-testid="password-input"
           value={ password }
@@ -29,6 +37,7 @@ const Login = () => {
       <button
         type="button"
         data-testid="login-submit-btn"
+        disabled={ isDisabled }
       >
         Enter
       </button>
