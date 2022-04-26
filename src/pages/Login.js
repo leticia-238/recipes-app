@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <form>
       <label htmlFor="email-input">
@@ -9,6 +12,8 @@ const Login = () => {
           type="text"
           id="email-input"
           data-testid="email-input"
+          value={ email }
+          onChange={ ({ target }) => setEmail(target.value) }
         />
       </label>
       <label htmlFor="password-input">
