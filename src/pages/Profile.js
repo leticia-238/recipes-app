@@ -1,10 +1,15 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 const Profile = () => (
-  <Header
-    title="Profile"
-    searchButton={ false }
-  />);
+  <div>
+    <Header
+      title="Profile"
+      searchButton={ false }
+    />
+    <Footer />
+  </div>
+);
 
 export default Profile;
