@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render } from '@testing-library/react';
 
 const renderWithRouter = (component) => {
   const history = createMemoryHistory();
   return ({
-    ...render(<BrowserRouter history={ history }>{component}</BrowserRouter>), history,
+    ...render(<Router history={ history }>{component}</Router>), history,
   });
 };
 export default renderWithRouter;
