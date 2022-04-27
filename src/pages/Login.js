@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { setLocalStorage } from '../utils/localStorage';
 
 const Login = () => {
@@ -12,6 +13,8 @@ const Login = () => {
     const isValid = emailRegex.test(email) && password.trim().length > numChar;
     setDisabled(!isValid);
   }, [email, password]);
+
+  const history = useHistory();
 
   return (
     <form>
@@ -39,7 +42,10 @@ const Login = () => {
         type="button"
         data-testid="login-submit-btn"
         disabled={ isDisabled }
-        onClick={ () => { setLocalStorage('user', { email }); } }
+        onClick={ () => {
+          setLocalStorage('user', { email });
+          history.push('/foods');
+        } }
       >
         Enter
       </button>
