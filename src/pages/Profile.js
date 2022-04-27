@@ -1,5 +1,10 @@
 import React from 'react';
+import Header from '../components/Header';
 
-const Profile = () => <h1>Profile</h1>;
+const Profile = () => (
+  <Header
+    title="Profile"
+    searchButton={ false }
+  />);
 
 export default Profile;
