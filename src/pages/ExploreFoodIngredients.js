@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 
-const Explore = () => (
+const ExploreFoodIngredients = () => (
   <Header
-    title="Explore"
+    title="Explore Ingredients"
     searchButton={ false }
   />);
 
-export default Explore;
+export default ExploreFoodIngredients;

@@ -1,5 +1,10 @@
 import React from 'react';
+import Header from '../components/Header';
 
-const DoneRecipes = () => <h1>DoneRecipes</h1>;
+const DoneRecipes = () => (
+  <Header
+    title="Done Recipes"
+    searchButton={ false }
+  />);
 
 export default DoneRecipes;

@@ -1,5 +1,10 @@
 import React from 'react';
+import Header from '../components/Header';
 
-const FavoriteRecipes = () => <h1>FavoriteRecipes</h1>;
+const FavoriteRecipes = () => (
+  <Header
+    title="Favorite Recipes"
+    searchButton={ false }
+  />);
 
 export default FavoriteRecipes;
