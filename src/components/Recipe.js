@@ -27,7 +27,7 @@ const Recipe = () => {
 
   return (
     <section className="recipe">
-      <img data-testid="recipe-photo" src={ selectedRecipe.image } alt="" />
+      <img data-testid="recipe-photo" src={ selectedRecipe.image } alt="recipe" />
       <h2 data-testid="recipe-title">{selectedRecipe.name}</h2>
       <p data-testid="recipe-category">
         {selectedRecipe.category}
