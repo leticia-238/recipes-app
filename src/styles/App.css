@@ -20,6 +20,25 @@
   max-height: 80vh;
 }
 
+.recomendations-container {
+  display: flex;
+  overflow: scroll;
+  width: 360px;
+}
+
+.recomendations-card {
+  border: 1px solid black;
+  height: 300px;
+  width: 1000px;
+}
+
+.recipe-btn {
+  bottom: 0;
+  height: 200px;
+  position: fixed;
+  width: 100px;
+}
+
 /*
 #iceLeft {
   animation: clink .8s infinite ease;

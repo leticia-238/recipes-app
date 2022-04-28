@@ -15,13 +15,16 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import ExploreFoodIngredients from './pages/ExploreFoodIngredients';
 import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
 import ExploreNationalities from './pages/ExploreNationalities';
+import FoodsDetails from './pages/FoodsDetails';
+import DrinksDetails from './pages/DrinkDetails';
 
 function App() {
   return (
+
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/foods/:id" component={ Foods } />
-      <Route path="/drinks/:id" component={ Drinks } />
+      <Route path="/foods/:id" component={ FoodsDetails } />
+      <Route path="/drinks/:id" component={ DrinksDetails } />
       <Route path="/foods/:id/in-progress " component={ Foods } />
       <Route path="/drinks/:id/in-progress " component={ Drinks } />
       <Route path="/foods" component={ Foods } />
