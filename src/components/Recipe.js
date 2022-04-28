@@ -1,29 +1,8 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 const Recipe = () => {
-  const { contextValue: { selectedRecipe, meals, drinks } } = useContext(AppContext);
-  const [renderIngredients, setRenderIngredients] = useState([]);
-  const sixthRecipe = 6;
-  const firstSixRecipes = selectedRecipe.type === 'meals'
-    ? drinks.slice(0, sixthRecipe)
-    : meals.slice(0, sixthRecipe);
-
-  const countIngredients = useCallback(() => {
-    const temp = [];
-    for (let index = 1; index < selectedRecipe.totalOfIngredients + 1; index += 1) {
-      temp.push(
-        `${
-          selectedRecipe[`strIngredient${index}`]} -
-          ${selectedRecipe[`strMeasure${index}`]}`,
-      );
-    }
-    return temp;
-  }, [selectedRecipe]);
-  useEffect(() => {
-    setRenderIngredients(countIngredients());
-  }, [countIngredients]);
+  const { contextValue: { selectedRecipe } } = useContext(AppContext);
 
   return (
     <section className="recipe">
@@ -42,58 +21,11 @@ const Recipe = () => {
         <button data-testid="favorite-btn" type="button">Favoritar</button>
       </div>
 
-      <section className="recipe-ingredients">
-        <h3>Ingredientes</h3>
-        {
-          renderIngredients.length > 0 && renderIngredients.map((ingredient, index) => (
-            <p
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {ingredient}
-            </p>))
-        }
-
-      </section>
-
       <section className="recipe-instructions">
         <h3>Como Preparar</h3>
         <p data-testid="instructions">{selectedRecipe.instructions}</p>
       </section>
-
-      <div className="recomendations-container">
-        {
-          firstSixRecipes.map((recipe, index) => (
-            <div
-              key={ index }
-              data-testid={ `${index}-recomendation-card` }
-              className="recomendations-card"
-            >
-              <p
-                data-testid={ `${index}-recomendation-title` }
-              >
-                {selectedRecipe.type === 'meals' ? recipe.strDrink : recipe.strMeal}
-
-              </p>
-              <img
-                width="300px"
-                src={ selectedRecipe.type === 'meals'
-                  ? recipe.strDrinkThumb : recipe.strMealThumb }
-                alt=""
-              />
-            </div>))
-        }
-      </div>
-
-      <button className="recipe-btn" data-testid="start-recipe-btn" type="button">
-        Start Recipe
-      </button>
     </section>);
 };
 
 export default Recipe;
-
-// Recipe.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   thumb: PropTypes.string.isRequired,
-// };
