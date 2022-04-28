@@ -8,10 +8,7 @@ const AppProvider = ({ children }) => {
   const [drinks, setDrinks] = useState([]);
 
   const [selectedRecipe, setSelectedRecipe] = useState({});
-
-  const handleRecipe = (data) => {
-    setSelectedRecipe(data);
-  };
+  const [ingredientsList, setIngredientsList] = useState([]);
 
   const getIngredientOrMeasure = (obj, item) => {
     const result = Object.fromEntries(
@@ -19,14 +16,25 @@ const AppProvider = ({ children }) => {
         .filter(([key, value]) => key.includes(item)
         && (value !== null && value !== '')),
     );
-
     return result;
+  };
+
+  const getIngredientList = (recipe, totalOfIngredients) => {
+    const list = [];
+    for (let index = 1; index < totalOfIngredients + 1; index += 1) {
+      list.push(
+        `${recipe[`strIngredient${index}`]} - ${recipe[`strMeasure${index}`]}`,
+      );
+    }
+    // console.log(list);
+    setIngredientsList(list);
   };
 
   const setMealsAndDrinks = useCallback(async (type, id) => {
     const recipe = type === 'meals' ? await fetchMeals(id) : await fetchDrinks(id);
     const ingredients = getIngredientOrMeasure(recipe[0], 'Ingredient');
     const measure = getIngredientOrMeasure(recipe[0], 'Measure');
+    const totalOfIngredients = Object.keys(ingredients).length;
     const options = {
       meals: {
         id: recipe[0].idMeal,
@@ -38,7 +46,7 @@ const AppProvider = ({ children }) => {
         ...ingredients,
         ...measure,
         instructions: recipe[0].strInstructions,
-        totalOfIngredients: Object.keys(ingredients).length,
+        totalOfIngredients,
       },
       drinks: {
         id: recipe[0].idDrink,
@@ -51,10 +59,10 @@ const AppProvider = ({ children }) => {
         instructions: recipe[0].strInstructions,
         ...ingredients,
         ...measure,
-        totalOfIngredients: Object.keys(ingredients).length,
+        totalOfIngredients,
       },
     };
-
+    getIngredientList(options[type], totalOfIngredients);
     setSelectedRecipe(options[type]);
   }, []);
 
@@ -74,11 +82,11 @@ const AppProvider = ({ children }) => {
     selectedRecipe,
     setMealsAndDrinks,
     setSelectedRecipe,
-    handleRecipe,
+    ingredientsList,
   };
 
   return (
-    <AppContext.Provider value={ { contextValue } }>
+    <AppContext.Provider value={ contextValue }>
       {children}
     </AppContext.Provider>
   );

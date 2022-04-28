@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AppContext from '../context/AppContext';
 
 const Recomendations = () => {
-  const { contextValue: { selectedRecipe, meals, drinks } } = useContext(AppContext);
+  const { selectedRecipe, meals, drinks } = useContext(AppContext);
 
   const sixthRecipe = 6;
   const firstSixRecipes = selectedRecipe.type === 'meals'

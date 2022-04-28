@@ -1,30 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import AppContext from '../context/AppContext';
 
 const IngredientsList = () => {
-  const { contextValue: { selectedRecipe } } = useContext(AppContext);
-
-  const [renderIngredients, setRenderIngredients] = useState([]);
-
-  const countIngredients = useCallback(() => {
-    const temp = [];
-    for (let index = 1; index < selectedRecipe.totalOfIngredients + 1; index += 1) {
-      temp.push(
-        `${
-          selectedRecipe[`strIngredient${index}`]} -
-          ${selectedRecipe[`strMeasure${index}`]}`,
-      );
-    }
-    return temp;
-  }, [selectedRecipe]);
-  useEffect(() => {
-    setRenderIngredients(countIngredients());
-  }, [countIngredients]);
+  const { ingredientsList } = useContext(AppContext);
 
   return (
     <section className="recipe-ingredients">
       <h3>Ingredientes</h3>
       {
-        renderIngredients.length > 0 && renderIngredients.map((ingredient, index) => (
+        ingredientsList.length > 0 && ingredientsList.map((ingredient, index) => (
           <p
             key={ index }
             data-testid={ `${index}-ingredient-name-and-measure` }
