@@ -26,7 +26,6 @@ const AppProvider = ({ children }) => {
         `${recipe[`strIngredient${index}`]} - ${recipe[`strMeasure${index}`]}`,
       );
     }
-    // console.log(list);
     setIngredientsList(list);
   };
 

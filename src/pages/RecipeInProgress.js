@@ -1,63 +1,41 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+import Recipe from '../components/Recipe';
+import AppContext from '../context/AppContext';
+import IngredientsCheckList from '../components/IngredientsCheckList';
 
-const RecipeInProgress = () => {
-  const { contextValue: { selectedRecipe } } = useContext(AppContext);
-  const [renderIngredients, setRenderIngredients] = useState([]);
+const RecipeInProgress = ({ match: { params: { id } } }) => {
+  const { setMealsAndDrinks } = useContext(AppContext);
 
-  const countIngredients = useCallback(() => {
-    const temp = [];
-    for (let index = 1; index < selectedRecipe.totalOfIngredients + 1; index += 1) {
-      temp.push(
-        `${selectedRecipe[`strIngredient${index}`]} -
-        ${selectedRecipe[`strMeasure${index}`]}`,
-      );
-    }
-    return temp;
-  }, [selectedRecipe]);
+  const { pathname } = useLocation();
+  const type = pathname.includes('foods') ? 'meals' : 'drinks';
 
   useEffect(() => {
-    setRenderIngredients(countIngredients());
-  }, [countIngredients]);
+    setMealsAndDrinks(type, id);
+  }, [id, setMealsAndDrinks, type]);
 
   return (
-    <section className="recipe">
-      <img data-testid="recipe-photo" src={ selectedRecipe.image } alt="" />
-      <h2 data-testid="recipe-title">{selectedRecipe.name}</h2>
-      <p data-testid="recipe-category">
-        {selectedRecipe.category}
-        {' '}
-        {
-          selectedRecipe.alcoholic ? selectedRecipe.alcoholic : ''
-        }
-
-      </p>
-      <div className="recipes-buttons">
-        <button data-testid="share-btn" type="button">Compartilhar</button>
-        <button data-testid="favorite-btn" type="button">Favoritar</button>
+    <div>
+      <div>
+        <Recipe />
+        <IngredientsCheckList />
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+        >
+          FinishRecipe
+        </button>
       </div>
+    </div>);
+};
 
-      <section className="recipe-ingredients">
-        <h3>Ingredientes</h3>
-        {
-          renderIngredients.length > 0 && renderIngredients.map((ingredient, index) => (
-            <p
-              key={ index }
-              // data-testid diferente
-              data-testid={ `${index}-ingredient-step` }
-            >
-              {ingredient}
-            </p>))
-        }
-
-      </section>
-      <button
-        type="button"
-        data-testid="finish-recipe-btn"
-      >
-        Finalizar Receita
-      </button>
-    </section>
-  );
+RecipeInProgress.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default RecipeInProgress;
