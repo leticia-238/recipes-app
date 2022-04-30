@@ -6,20 +6,27 @@ import AppContext from '../context/AppContext';
 import IngredientsCheckList from '../components/IngredientsCheckList';
 
 const RecipeInProgress = ({ match: { params: { id } } }) => {
-  const { setMealsAndDrinks } = useContext(AppContext);
+  const { setMealsAndDrinks, ingredientsList = [],
+    selectedRecipe } = useContext(AppContext);
 
   const { pathname } = useLocation();
   const type = pathname.includes('foods') ? 'meals' : 'drinks';
 
+  const props = { ingredientsList, type, id };
+
   useEffect(() => {
     setMealsAndDrinks(type, id);
-  }, [id, setMealsAndDrinks, type]);
+  }, [setMealsAndDrinks, id, type]);
+
+  const conditional = ingredientsList.length > 0
+  && Object.keys(selectedRecipe).length > 0;
 
   return (
     <div>
       <div>
         <Recipe />
-        <IngredientsCheckList />
+        {conditional
+           && (<IngredientsCheckList { ...props } />)}
         <button
           type="button"
           data-testid="finish-recipe-btn"
