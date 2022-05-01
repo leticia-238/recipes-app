@@ -1,68 +1,47 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
-import { fetchDrinks, fetchMeals, fetchRecipesData } from '../utils/apiData';
+import { fetchRecipesData, fetchMeals, fetchDrinks } from '../utils/apiData';
 
 const AppProvider = ({ children }) => {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
 
   const [selectedRecipe, setSelectedRecipe] = useState({});
-  const [ingredientsList, setIngredientsList] = useState([]);
 
-  const getIngredientOrMeasure = (obj, item) => {
-    const result = Object.fromEntries(
-      Object.entries(obj)
-        .filter(([key, value]) => key.includes(item)
-        && (value !== null && value !== '')),
-    );
-    return result;
-  };
+  const getIngredientsAndMeasures = (recipe) => {
+    const ingredients = Object.keys(recipe).filter((key) => (
+      key.includes('strIngredient') && recipe[key] !== '' && recipe[key] !== null));
 
-  const getIngredientList = (recipe, totalOfIngredients) => {
-    const list = [];
-    for (let index = 1; index < totalOfIngredients + 1; index += 1) {
-      list.push(
-        `${recipe[`strIngredient${index}`]} - ${recipe[`strMeasure${index}`]}`,
-      );
-    }
-    setIngredientsList(list);
+    return ingredients.map((ingredient, index) => (
+      `${recipe[ingredient]} - ${recipe[`strMeasure${index}`]}`));
   };
 
   const setMealsAndDrinks = useCallback(async (type, id) => {
     const recipe = type === 'meals' ? await fetchMeals(id) : await fetchDrinks(id);
-    const ingredients = getIngredientOrMeasure(recipe[0], 'Ingredient');
-    const measure = getIngredientOrMeasure(recipe[0], 'Measure');
-    const totalOfIngredients = Object.keys(ingredients).length;
     const options = {
       meals: {
         id: recipe[0].idMeal,
-        type,
-        category: recipe[0].strCategory,
-        nationality: recipe[0].nationality,
         name: recipe[0].strMeal,
         image: recipe[0].strMealThumb,
-        ...ingredients,
-        ...measure,
-        instructions: recipe[0].strInstructions,
-        totalOfIngredients,
       },
       drinks: {
         id: recipe[0].idDrink,
-        type,
-        category: recipe[0].strCategory,
-        nationality: recipe[0].nationality,
         alcoholic: recipe[0].strAlcoholic,
         name: recipe[0].strDrink,
         image: recipe[0].strDrinkThumb,
-        instructions: recipe[0].strInstructions,
-        ...ingredients,
-        ...measure,
-        totalOfIngredients,
       },
     };
-    getIngredientList(options[type], totalOfIngredients);
-    setSelectedRecipe(options[type]);
+
+    const recipeInfo = {
+      type,
+      category: recipe[0].strCategory,
+      nationality: recipe[0].nationality,
+      instructions: recipe[0].strInstructions,
+      ingredientsList: getIngredientsAndMeasures(recipe[0]),
+      ...options[type],
+    };
+    setSelectedRecipe(recipeInfo);
   }, []);
 
   useEffect(() => {
@@ -80,8 +59,6 @@ const AppProvider = ({ children }) => {
     drinks,
     selectedRecipe,
     setMealsAndDrinks,
-    setSelectedRecipe,
-    ingredientsList,
   };
 
   return (

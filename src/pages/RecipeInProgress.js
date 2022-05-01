@@ -1,39 +1,36 @@
-import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
 import Recipe from '../components/Recipe';
-import AppContext from '../context/AppContext';
 import IngredientsCheckList from '../components/IngredientsCheckList';
+import AppContext from '../context/AppContext';
 
 const RecipeInProgress = ({ match: { params: { id } } }) => {
-  const { setMealsAndDrinks, ingredientsList = [],
-    selectedRecipe } = useContext(AppContext);
-
   const { pathname } = useLocation();
-  const type = pathname.includes('foods') ? 'meals' : 'drinks';
 
-  const props = { ingredientsList, type, id };
+  const { selectedRecipe, setMealsAndDrinks } = useContext(AppContext);
 
   useEffect(() => {
+    const type = pathname.includes('foods') ? 'meals' : 'drinks';
     setMealsAndDrinks(type, id);
-  }, [setMealsAndDrinks, id, type]);
+  }, [setMealsAndDrinks, id, pathname]);
 
-  const conditional = ingredientsList.length > 0
-  && Object.keys(selectedRecipe).length > 0;
+  const conditional = Object.keys(selectedRecipe).length > 0;
 
   return (
     <div>
-      <div>
-        <Recipe />
-        {conditional
-           && (<IngredientsCheckList { ...props } />)}
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-        >
-          FinishRecipe
-        </button>
-      </div>
+      {conditional && (
+        <div>
+          <Recipe />
+          <IngredientsCheckList />
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+          >
+            FinishRecipe
+          </button>
+        </div>
+      )}
     </div>);
 };
 

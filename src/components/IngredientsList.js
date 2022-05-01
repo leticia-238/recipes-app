@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 const IngredientsList = () => {
-  const { ingredientsList } = useContext(AppContext);
+  const { selectedRecipe: { ingredientsList } } = useContext(AppContext);
 
   return (
     <section className="recipe-ingredients">

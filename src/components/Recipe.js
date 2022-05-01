@@ -11,10 +11,7 @@ const Recipe = () => {
       <p data-testid="recipe-category">
         {selectedRecipe.category}
         {' '}
-        {
-          selectedRecipe.alcoholic ? selectedRecipe.alcoholic : ''
-        }
-
+        { selectedRecipe.alcoholic || '' }
       </p>
       <div className="recipes-buttons">
         <button data-testid="share-btn" type="button">Compartilhar</button>
@@ -25,7 +22,8 @@ const Recipe = () => {
         <h3>Como Preparar</h3>
         <p data-testid="instructions">{selectedRecipe.instructions}</p>
       </section>
-    </section>);
+    </section>
+  );
 };
 
 export default Recipe;
