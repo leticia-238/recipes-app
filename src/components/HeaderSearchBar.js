@@ -1,27 +1,33 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { getFoodByIngredient, getFoodByName, getFoodByLetter,
   getDrinkByIngredient, getDrinkByName, getDrinkByLetter } from '../utils/apiData';
 
 const HeaderSearchBar = ({ searchInput }) => {
   const [radioSearch, setRadioSearch] = useState('');
-  const FIRST_LETTER = 'first-letter';
+  const [search, setSearch] = useState({});
   const location = useLocation();
+  const history = useHistory();
+  const FIRST_LETTER = 'first-letter';
+  // const TWELVE_RECIPES = 12;
+  // const SHOW_TWELVE_RECIPES = search.slice(0, TWELVE_RECIPES);
 
-  // pegar dados do input search
   const SearchFoods = async () => {
     if (radioSearch === 'ingredient') {
-      const result = getFoodByIngredient(searchInput);
-      return result;
+      const result = await getFoodByIngredient(searchInput);
+      setSearch(result);
     }
     if (radioSearch === 'name') {
-      const result = getFoodByName(searchInput);
-      return result;
+      const result = await getFoodByName(searchInput);
+      setSearch(result);
+      if (result.length === 1) {
+        history.push(`/foods/${result[0].idMeal}`);
+      }
     }
     if (radioSearch === FIRST_LETTER && searchInput.length === 1) {
-      const result = getFoodByLetter(searchInput);
-      return result;
+      const result = await getFoodByLetter(searchInput);
+      setSearch(result);
     }
     if (radioSearch === FIRST_LETTER && searchInput.length > 1) {
       global.alert('Your search must have only 1 (one) character');
@@ -30,16 +36,19 @@ const HeaderSearchBar = ({ searchInput }) => {
 
   const SearchDrinks = async () => {
     if (radioSearch === 'ingredient') {
-      const result = getDrinkByIngredient(searchInput);
-      return result;
+      const result = await getDrinkByIngredient(searchInput);
+      setSearch(result);
     }
     if (radioSearch === 'name') {
-      const result = getDrinkByName(searchInput);
-      return result;
+      const result = await getDrinkByName(searchInput);
+      setSearch(result);
+      if (result.length === 1) {
+        history.push(`/drinks/${result[0].idDrink}`);
+      }
     }
     if (radioSearch === FIRST_LETTER && searchInput.length === 1) {
-      const result = getDrinkByLetter(searchInput);
-      return result;
+      const result = await getDrinkByLetter(searchInput);
+      setSearch(result);
     }
     if (radioSearch === FIRST_LETTER && searchInput.length > 1) {
       global.alert('Your search must have only 1 (one) character');
@@ -60,6 +69,7 @@ const HeaderSearchBar = ({ searchInput }) => {
   return (
     <div>
       {/* {console.log(radioSearch)} */}
+      {console.log(search)}
       <label htmlFor="ingredient">
         Ingredient
         <input
