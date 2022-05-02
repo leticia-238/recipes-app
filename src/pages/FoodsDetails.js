@@ -3,16 +3,29 @@ import PropTypes from 'prop-types';
 import Recipe from '../components/Recipe';
 
 import AppContext from '../context/AppContext';
+import IngredientsList from '../components/IngredientsList';
+import Recomendations from '../components/Recomendations';
+import ButtonStartRecipe from '../components/ButtonStartRecipe';
 
 const FoodsDetails = ({ match: { params: { id } } }) => {
-  const { contextValue: { setMealsAndDrinks } } = useContext(AppContext);
+  const { setMealsAndDrinks, selectedRecipe } = useContext(AppContext);
 
   useEffect(() => {
-    setMealsAndDrinks('meals', id);
+    setMealsAndDrinks('foods', id);
   }, [id, setMealsAndDrinks]);
+
+  const conditional = Object.keys(selectedRecipe).length > 0;
+
   return (
     <div>
-      <Recipe />
+      {conditional && (
+        <div>
+          <Recipe />
+          <IngredientsList />
+          <Recomendations />
+        </div>
+      )}
+      <ButtonStartRecipe />
       <h1>Foods Details</h1>
       <section className="recipe-video">
         <video data-testid="video" width="400" height="400" src="">

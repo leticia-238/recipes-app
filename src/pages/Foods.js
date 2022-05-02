@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 const Foods = ({ match: { params: { id } } }) => (
   <div>
-    { !id && <Header title="Foods" /> }
+    { !id && <Header searchButton title="Foods" /> }
     <h2>Foods Page</h2>
     { !id && <Footer /> }
   </div>
