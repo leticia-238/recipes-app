@@ -1,26 +1,78 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
+import copy from 'clipboard-copy';
 import AppContext from '../context/AppContext';
+import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import BlackHeartIcon from '../images/blackHeartIcon.svg';
+import ShareIcon from '../images/shareIcon.svg';
 
 const Recipe = () => {
-  const { selectedRecipe } = useContext(AppContext);
+  const { selectedRecipe, favoriteRecipes, setFavoriteRecipes } = useContext(AppContext);
+
+  const { id, type, nationality, category, alcoholicOrNot, name, image,
+    instructions, recipeUrl } = selectedRecipe;
+
+  const favoriteRecipe = {
+    id,
+    type: type === 'foods' ? 'food' : 'drink',
+    category,
+    alcoholicOrNot,
+    nationality: nationality || '',
+    name,
+    image,
+  };
+
+  const [isFavorite, setIsFavorite] = useState(favoriteRecipes.some((recipe) => (
+    recipe.id === id)));
+
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+
+  const handleShareClick = useCallback(() => {
+    setIsLinkCopied(true);
+    copy(recipeUrl);
+    const messageTime = 5000;
+    setInterval(() => {
+      setIsLinkCopied(false);
+    }, messageTime);
+  }, [recipeUrl]);
 
   return (
     <section className="recipe">
-      <img data-testid="recipe-photo" src={ selectedRecipe.image } alt="" />
-      <h2 data-testid="recipe-title">{selectedRecipe.name}</h2>
+      <img data-testid="recipe-photo" src={ image } alt="" />
+      <h2 data-testid="recipe-title">{name}</h2>
       <p data-testid="recipe-category">
-        {selectedRecipe.category}
+        {category}
         {' '}
-        { selectedRecipe.alcoholic || '' }
+        { alcoholicOrNot }
       </p>
       <div className="recipes-buttons">
-        <button data-testid="share-btn" type="button">Compartilhar</button>
-        <button data-testid="favorite-btn" type="button">Favoritar</button>
+        <input
+          data-testid="share-btn"
+          type="image"
+          src={ ShareIcon }
+          alt="Compartilhar Receita"
+          onClick={ handleShareClick }
+        />
+        <input
+          data-testid="favorite-btn"
+          type="image"
+          src={ isFavorite ? BlackHeartIcon : WhiteHeartIcon }
+          alt="Favoritar Receita"
+          onClick={ () => {
+            setIsFavorite(!isFavorite);
+            if (!isFavorite) {
+              setFavoriteRecipes([...favoriteRecipes, favoriteRecipe]);
+            } else {
+              setFavoriteRecipes(favoriteRecipes.filter((recipe) => (
+                recipe.id !== id)));
+            }
+          } }
+        />
+        {isLinkCopied && <span>Link copied!</span>}
       </div>
 
       <section className="recipe-instructions">
         <h3>Como Preparar</h3>
-        <p data-testid="instructions">{selectedRecipe.instructions}</p>
+        <p data-testid="instructions">{instructions}</p>
       </section>
     </section>
   );

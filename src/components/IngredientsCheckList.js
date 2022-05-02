@@ -1,14 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ToggleButton } from 'react-bootstrap';
 import AppContext from '../context/AppContext';
-import { setLocalStorage, getLocalStorage } from '../utils/localStorage';
-
-const defaultData = { meals: {}, cocktails: {} };
-const inProgressRecipes = getLocalStorage('inProgressRecipes') || defaultData;
 
 const IngredientsCheckList = () => {
-  const { selectedRecipe: { ingredientsList, type, id } } = useContext(AppContext);
+  const { selectedRecipe, inProgressRecipes, setInProgressRecipes,
+    doneRecipes, setDoneRecipes } = useContext(AppContext);
 
+  const { ingredientsList, type, id } = selectedRecipe;
   const [isCheckedIngredients, setIsCheckedIngredients] = useState({});
 
   useEffect(() => {
@@ -22,19 +20,13 @@ const IngredientsCheckList = () => {
     }, {});
 
     setIsCheckedIngredients(defaultCheckedState);
-  }, [id, ingredientsList, type]);
+  }, [id, ingredientsList, type, inProgressRecipes]);
 
   const saveCheckedIngredients = (stateObj) => {
-    const usedIngredients = ingredientsList.filter((element, index) => (stateObj[index]));
-    const progressRecipesList = {
-      ...inProgressRecipes[type],
-      [id]: usedIngredients,
-    };
+    const usedIngredients = ingredientsList.filter((elm, index) => (stateObj[index]));
+    const progressRecipesList = { ...inProgressRecipes[type], [id]: usedIngredients };
 
-    setLocalStorage('inProgressRecipes', {
-      ...inProgressRecipes,
-      [type]: progressRecipesList,
-    });
+    setInProgressRecipes({ ...inProgressRecipes, [type]: progressRecipesList });
   };
 
   const conditional = Object.keys(isCheckedIngredients).length > 0;
@@ -56,6 +48,11 @@ const IngredientsCheckList = () => {
                 const obj = { ...isCheckedIngredients, [index]: currentTarget.checked };
                 setIsCheckedIngredients(obj);
                 saveCheckedIngredients(obj);
+                if (!(Object.values(obj).includes(false))) {
+                  setDoneRecipes([...doneRecipes, selectedRecipe]);
+                } else {
+                  setDoneRecipes(doneRecipes.filter((recipe) => (recipe.id !== id)));
+                }
               } }
             >
               Checked

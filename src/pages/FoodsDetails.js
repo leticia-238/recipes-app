@@ -11,7 +11,7 @@ const FoodsDetails = ({ match: { params: { id } } }) => {
   const { setMealsAndDrinks } = useContext(AppContext);
 
   useEffect(() => {
-    setMealsAndDrinks('meals', id);
+    setMealsAndDrinks('foods', id);
   }, [id, setMealsAndDrinks]);
   return (
     <div>
