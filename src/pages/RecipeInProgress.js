@@ -13,7 +13,7 @@ const RecipeInProgress = ({ match: { params: { id } } }) => {
   const { selectedRecipe, setMealsAndDrinks, doneRecipes } = useContext(AppContext);
 
   useEffect(() => {
-    const type = pathname.includes('foods') ? 'foods' : 'drinks';
+    const type = pathname.includes('foods') ? 'meals' : 'cocktails';
     setMealsAndDrinks(type, id);
   }, [setMealsAndDrinks, id, pathname]);
 

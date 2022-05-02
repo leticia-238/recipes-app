@@ -10,10 +10,10 @@ const Recipe = () => {
 
   const { id, type, nationality, category, alcoholicOrNot, name, image,
     instructions, recipeUrl } = selectedRecipe;
-
+  console.log(recipeUrl);
   const favoriteRecipe = {
     id,
-    type: type === 'foods' ? 'food' : 'drink',
+    type: type === 'meals' ? 'food' : 'drink',
     category,
     alcoholicOrNot,
     nationality: nationality || '',
