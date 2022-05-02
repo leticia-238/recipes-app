@@ -3,7 +3,6 @@ import AppContext from '../context/AppContext';
 
 const IngredientsList = () => {
   const { selectedRecipe: { ingredientsList } } = useContext(AppContext);
-  console.log(ingredientsList);
   return (
     <section className="recipe-ingredients">
       <h3>Ingredientes</h3>
