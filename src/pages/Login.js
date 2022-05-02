@@ -19,23 +19,21 @@ const Login = () => {
 
   return (
     <Form>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInputEmail">
+      <Form.Group className="mb-3" controlId="Form.ControlInputEmail">
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
           placeholder="Enter email"
-          id="email-input"
           data-testid="email-input"
           value={ email }
           onChange={ ({ target }) => setEmail(target.value) }
         />
       </Form.Group>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlInputPassword">
+      <Form.Group className="mb-3" controlId="Form.ControlInputPassword">
         <Form.Label>Senha</Form.Label>
         <Form.Control
           type="password"
           placeholder="Password"
-          id="password-input"
           data-testid="password-input"
           value={ password }
           onChange={ ({ target }) => setPassword(target.value) }

@@ -55,7 +55,7 @@ const AppProvider = ({ children }) => {
       key.includes('strIngredient') && recipe[key] !== '' && recipe[key] !== null));
 
     return ingredients.map((ingredient, index) => (
-      `${recipe[ingredient]} - ${recipe[`strMeasure${index}`]}`));
+      `${recipe[ingredient]} - ${recipe[`strMeasure${index + 1}`]}`));
   }, []);
 
   const setMealsAndDrinks = useCallback(async (type, id) => {
