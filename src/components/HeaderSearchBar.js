@@ -11,8 +11,7 @@ const HeaderSearchBar = ({ searchInput }) => {
   const history = useHistory();
   const FIRST_LETTER = 'first-letter';
   const ALERT_NOTFOUND = 'Sorry, we haven\'t found any recipes for these filters.';
-  // const TWELVE_RECIPES = 12;
-  // const SHOW_TWELVE_RECIPES = search.slice(0, TWELVE_RECIPES);
+  const MAX_RECIPES = 12;
 
   const SearchFoods = async () => {
     if (radioSearch === 'ingredient') {
@@ -121,10 +120,31 @@ const HeaderSearchBar = ({ searchInput }) => {
       >
         Search
       </button>
+      <div>
+        { search.length > 0
+          ? (
+            search.slice(0, MAX_RECIPES).map((recipe, index) => (
+              <div
+                key={ index }
+                data-testid={ `${index}-recipe-card` }
+              >
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ recipe.strMealThumb || recipe.strDrinkThumb }
+                  alt={ recipe.strMeal || recipe.strDrink }
+                />
+                <p data-testid={ `${index}-card-name` }>
+                  { recipe.strMeal || recipe.strDrink }
+                </p>
+              </div>
+            ))
+          ) : ('')}
+      </div>
     </div>
   );
 };
-
+// idDrink, strDrink, strDrinkThumb
+// idMeal, strMeal, strMealThumb
 HeaderSearchBar.propTypes = {
   searchInput: PropTypes.string.isRequired,
 };
