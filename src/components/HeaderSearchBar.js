@@ -10,18 +10,25 @@ const HeaderSearchBar = ({ searchInput }) => {
   const location = useLocation();
   const history = useHistory();
   const FIRST_LETTER = 'first-letter';
+  const ALERT_NOTFOUND = 'Sorry, we haven\'t found any recipes for these filters.';
   // const TWELVE_RECIPES = 12;
   // const SHOW_TWELVE_RECIPES = search.slice(0, TWELVE_RECIPES);
 
   const SearchFoods = async () => {
     if (radioSearch === 'ingredient') {
       const result = await getFoodByIngredient(searchInput);
-      setSearch(result);
+      if (result === null) {
+        global.alert(ALERT_NOTFOUND);
+      } else {
+        setSearch(result);
+      }
     }
     if (radioSearch === 'name') {
       const result = await getFoodByName(searchInput);
       setSearch(result);
-      if (result.length === 1) {
+      if (result === null) {
+        global.alert(ALERT_NOTFOUND);
+      } else if (result.length === 1) {
         history.push(`/foods/${result[0].idMeal}`);
       }
     }
@@ -34,15 +41,22 @@ const HeaderSearchBar = ({ searchInput }) => {
     }
   };
 
+  // ver erro alert do ingredient.
   const SearchDrinks = async () => {
     if (radioSearch === 'ingredient') {
       const result = await getDrinkByIngredient(searchInput);
-      setSearch(result);
+      if (result === null) {
+        global.alert(ALERT_NOTFOUND);
+      } else {
+        setSearch(result);
+      }
     }
     if (radioSearch === 'name') {
       const result = await getDrinkByName(searchInput);
       setSearch(result);
-      if (result.length === 1) {
+      if (result === null) {
+        global.alert(ALERT_NOTFOUND);
+      } else if (result.length === 1) {
         history.push(`/drinks/${result[0].idDrink}`);
       }
     }
