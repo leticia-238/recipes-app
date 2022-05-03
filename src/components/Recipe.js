@@ -13,7 +13,7 @@ const Recipe = () => {
 
   const favoriteRecipe = {
     id,
-    type: type === 'foods' ? 'food' : 'drink',
+    type: type === 'meals' ? 'food' : 'drink',
     category,
     alcoholicOrNot,
     nationality: nationality || '',

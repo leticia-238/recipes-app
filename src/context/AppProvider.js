@@ -5,7 +5,9 @@ import { fetchRecipesData, fetchMeals, fetchDrinks } from '../utils/apiData';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 const AppProvider = ({ children }) => {
-  const [inProgressRecipes, setInProgressRecipes] = useState({ foods: {}, drinks: {} });
+  const [inProgressRecipes, setInProgressRecipes] = useState(
+    { meals: {}, cocktails: {} },
+  );
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
@@ -59,17 +61,17 @@ const AppProvider = ({ children }) => {
   }, []);
 
   const setMealsAndDrinks = useCallback(async (type, id) => {
-    const recipe = type === 'foods' ? await fetchMeals(id) : await fetchDrinks(id);
-    const recipeUrl = `http://localhost:3000/${type}/${id}`;
+    const recipe = type === 'meals' ? await fetchMeals(id) : await fetchDrinks(id);
+    const recipeUrl = type === 'meals' ? `http://localhost:3000/foods/${id}` : `http://localhost:3000/drinks/${id}`;
 
     const options = {
-      foods: {
+      meals: {
         id: recipe[0].idMeal,
         name: recipe[0].strMeal,
         image: recipe[0].strMealThumb,
         alcoholicOrNot: '',
       },
-      drinks: {
+      cocktails: {
         id: recipe[0].idDrink,
         name: recipe[0].strDrink,
         image: recipe[0].strDrinkThumb,

@@ -5,7 +5,7 @@ const Recomendations = () => {
   const { selectedRecipe, meals, drinks } = useContext(AppContext);
 
   const sixthRecipe = 6;
-  const firstSixRecipes = selectedRecipe.type === 'foods'
+  const firstSixRecipes = selectedRecipe.type === 'meals'
     ? drinks.slice(0, sixthRecipe)
     : meals.slice(0, sixthRecipe);
 
@@ -21,12 +21,12 @@ const Recomendations = () => {
             <p
               data-testid={ `${index}-recomendation-title` }
             >
-              {selectedRecipe.type === 'foods' ? recipe.strDrink : recipe.strMeal}
+              {selectedRecipe.type === 'meals' ? recipe.strDrink : recipe.strMeal}
 
             </p>
             <img
               width="300px"
-              src={ selectedRecipe.type === 'foods'
+              src={ selectedRecipe.type === 'meals'
                 ? recipe.strDrinkThumb : recipe.strMealThumb }
               alt=""
             />
