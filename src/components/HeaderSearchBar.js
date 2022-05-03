@@ -6,7 +6,7 @@ import { getFoodByIngredient, getFoodByName, getFoodByLetter,
 
 const HeaderSearchBar = ({ searchInput }) => {
   const [radioSearch, setRadioSearch] = useState('');
-  const [search, setSearch] = useState({});
+  const [search, setSearch] = useState([]);
   const location = useLocation();
   const history = useHistory();
   const FIRST_LETTER = 'first-letter';
@@ -24,11 +24,13 @@ const HeaderSearchBar = ({ searchInput }) => {
     }
     if (radioSearch === 'name') {
       const result = await getFoodByName(searchInput);
-      setSearch(result);
+      // setSearch(result);
       if (result === null) {
         global.alert(ALERT_NOTFOUND);
       } else if (result.length === 1) {
         history.push(`/foods/${result[0].idMeal}`);
+      } else {
+        setSearch(result);
       }
     }
     if (radioSearch === FIRST_LETTER && searchInput.length === 1) {
@@ -52,11 +54,12 @@ const HeaderSearchBar = ({ searchInput }) => {
     }
     if (radioSearch === 'name') {
       const result = await getDrinkByName(searchInput);
-      setSearch(result);
       if (result === null) {
         global.alert(ALERT_NOTFOUND);
       } else if (result.length === 1) {
         history.push(`/drinks/${result[0].idDrink}`);
+      } else {
+        setSearch(result);
       }
     }
     if (radioSearch === FIRST_LETTER && searchInput.length === 1) {
