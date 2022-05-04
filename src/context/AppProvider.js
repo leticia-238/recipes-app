@@ -30,8 +30,8 @@ const AppProvider = ({ children }) => {
     const getRecipes = async () => {
       const mealsData = await fetchRecipesData('meals');
       const drinksData = await fetchRecipesData('drinks');
-      setDrinks(drinksData.drinks);
-      setMeals(mealsData.meals);
+      setDrinks(drinksData);
+      setMeals(mealsData);
     };
     getRecipes();
   }, []);
