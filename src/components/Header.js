@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import HeaderSearchBar from './HeaderSearchBar';
 
 const Header = ({ title, searchButton = true }) => {
   const { push } = useHistory();
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [searchInput, setSearchInput] = useState(''); // Vi
 
   return (
     <header className="header">
@@ -23,7 +25,16 @@ const Header = ({ title, searchButton = true }) => {
 
       {
         showSearchBar && (
-          <input type="text" data-testid="search-input" />
+          <div>
+            <input
+              type="text"
+              data-testid="search-input"
+              value={ searchInput } // Vi
+              onChange={ (e) => setSearchInput(e.target.value) } // Vi
+            />
+            {/* Vi */}
+            <HeaderSearchBar searchInput={ searchInput } />
+          </div>
         )
       }
     </header>);
