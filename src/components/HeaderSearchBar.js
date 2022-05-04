@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useHistory } from 'react-router-dom';
 import { getFoodByIngredient, getFoodByName, getFoodByLetter,
   getDrinkByIngredient, getDrinkByName, getDrinkByLetter } from '../utils/apiData';
+import AppContext from '../context/AppContext';
 
 const HeaderSearchBar = ({ searchInput }) => {
+  const { contextValue: { search, setSearch } } = useContext(AppContext);
   const [radioSearch, setRadioSearch] = useState('');
-  const [search, setSearch] = useState([]);
   const location = useLocation();
   const history = useHistory();
   const FIRST_LETTER = 'first-letter';
   const ALERT_NOTFOUND = 'Sorry, we haven\'t found any recipes for these filters.';
-  const MAX_RECIPES = 12;
+  console.log(search);
 
   const SearchFoods = async () => {
     if (radioSearch === 'ingredient') {
@@ -24,7 +25,6 @@ const HeaderSearchBar = ({ searchInput }) => {
     }
     if (radioSearch === 'name') {
       const result = await getFoodByName(searchInput);
-      // setSearch(result);
       if (result === null) {
         global.alert(ALERT_NOTFOUND);
       } else if (result.length === 1) {
@@ -42,7 +42,6 @@ const HeaderSearchBar = ({ searchInput }) => {
     }
   };
 
-  // ver erro alert do ingredient.
   const SearchDrinks = async () => {
     if (radioSearch === 'ingredient') {
       const result = await getDrinkByIngredient(searchInput);
@@ -84,8 +83,6 @@ const HeaderSearchBar = ({ searchInput }) => {
 
   return (
     <div>
-      {/* {console.log(radioSearch)} */}
-      {console.log(search)}
       <label htmlFor="ingredient">
         Ingredient
         <input
@@ -123,31 +120,10 @@ const HeaderSearchBar = ({ searchInput }) => {
       >
         Search
       </button>
-      <div>
-        { search.length > 0
-          ? (
-            search.slice(0, MAX_RECIPES).map((recipe, index) => (
-              <div
-                key={ index }
-                data-testid={ `${index}-recipe-card` }
-              >
-                <img
-                  data-testid={ `${index}-card-img` }
-                  src={ recipe.strMealThumb || recipe.strDrinkThumb }
-                  alt={ recipe.strMeal || recipe.strDrink }
-                />
-                <p data-testid={ `${index}-card-name` }>
-                  { recipe.strMeal || recipe.strDrink }
-                </p>
-              </div>
-            ))
-          ) : ('')}
-      </div>
     </div>
   );
 };
-// idDrink, strDrink, strDrinkThumb
-// idMeal, strMeal, strMealThumb
+
 HeaderSearchBar.propTypes = {
   searchInput: PropTypes.string.isRequired,
 };

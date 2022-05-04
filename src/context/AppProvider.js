@@ -6,6 +6,7 @@ import { fetchDrinks, fetchMeals, fetchRecipesData } from '../utils/apiData';
 const AppProvider = ({ children }) => {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [search, setSearch] = useState([]);
 
   const [selectedRecipe, setSelectedRecipe] = useState({});
 
@@ -72,9 +73,11 @@ const AppProvider = ({ children }) => {
     meals,
     drinks,
     selectedRecipe,
+    search,
     setMealsAndDrinks,
     setSelectedRecipe,
     handleRecipe,
+    setSearch,
   };
 
   return (
