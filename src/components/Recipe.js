@@ -1,99 +1,81 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-// import PropTypes from 'prop-types';
+import React, { useCallback, useContext, useState } from 'react';
+import copy from 'clipboard-copy';
 import AppContext from '../context/AppContext';
+import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import BlackHeartIcon from '../images/blackHeartIcon.svg';
+import ShareIcon from '../images/shareIcon.svg';
 
 const Recipe = () => {
-  const { contextValue: { selectedRecipe, meals, drinks } } = useContext(AppContext);
-  const [renderIngredients, setRenderIngredients] = useState([]);
-  const sixthRecipe = 6;
-  const firstSixRecipes = selectedRecipe.type === 'meals'
-    ? drinks.slice(0, sixthRecipe)
-    : meals.slice(0, sixthRecipe);
+  const { selectedRecipe, favoriteRecipes, setFavoriteRecipes } = useContext(AppContext);
 
-  const countIngredients = useCallback(() => {
-    const temp = [];
-    for (let index = 1; index < selectedRecipe.totalOfIngredients + 1; index += 1) {
-      temp.push(
-        `${
-          selectedRecipe[`strIngredient${index}`]} -
-          ${selectedRecipe[`strMeasure${index}`]}`,
-      );
-    }
-    return temp;
-  }, [selectedRecipe]);
-  useEffect(() => {
-    setRenderIngredients(countIngredients());
-  }, [countIngredients]);
+  const { id, type, nationality, category, alcoholicOrNot, name, image,
+    instructions, recipeUrl } = selectedRecipe;
+
+  const favoriteRecipe = {
+    id,
+    type: type === 'meals' ? 'food' : 'drink',
+    category,
+    alcoholicOrNot,
+    nationality: nationality || '',
+    name,
+    image,
+  };
+
+  const [isFavorite, setIsFavorite] = useState(favoriteRecipes.some((recipe) => (
+    recipe.id === id)));
+
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
+
+  const handleShareClick = useCallback(() => {
+    setIsLinkCopied(true);
+    copy(recipeUrl);
+    const messageTime = 5000;
+    setInterval(() => {
+      setIsLinkCopied(false);
+    }, messageTime);
+  }, [recipeUrl]);
 
   return (
     <section className="recipe">
-      <img data-testid="recipe-photo" src={ selectedRecipe.image } alt="" />
-      <h2 data-testid="recipe-title">{selectedRecipe.name}</h2>
+      <img data-testid="recipe-photo" src={ image } alt="" />
+      <h2 data-testid="recipe-title">{name}</h2>
       <p data-testid="recipe-category">
-        {selectedRecipe.category}
+        {category}
         {' '}
-        {
-          selectedRecipe.alcoholic ? selectedRecipe.alcoholic : ''
-        }
-
+        { alcoholicOrNot }
       </p>
       <div className="recipes-buttons">
-        <button data-testid="share-btn" type="button">Compartilhar</button>
-        <button data-testid="favorite-btn" type="button">Favoritar</button>
+        <input
+          data-testid="share-btn"
+          type="image"
+          src={ ShareIcon }
+          alt="Compartilhar Receita"
+          onClick={ handleShareClick }
+        />
+        <input
+          data-testid="favorite-btn"
+          type="image"
+          src={ isFavorite ? BlackHeartIcon : WhiteHeartIcon }
+          alt="Favoritar Receita"
+          onClick={ () => {
+            setIsFavorite(!isFavorite);
+            if (!isFavorite) {
+              setFavoriteRecipes([...favoriteRecipes, favoriteRecipe]);
+            } else {
+              setFavoriteRecipes(favoriteRecipes.filter((recipe) => (
+                recipe.id !== id)));
+            }
+          } }
+        />
+        {isLinkCopied && <span>Link copied!</span>}
       </div>
-
-      <section className="recipe-ingredients">
-        <h3>Ingredientes</h3>
-        {
-          renderIngredients.length > 0 && renderIngredients.map((ingredient, index) => (
-            <p
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {ingredient}
-            </p>))
-        }
-
-      </section>
 
       <section className="recipe-instructions">
         <h3>Como Preparar</h3>
-        <p data-testid="instructions">{selectedRecipe.instructions}</p>
+        <p data-testid="instructions">{instructions}</p>
       </section>
-
-      <div className="recomendations-container">
-        {
-          firstSixRecipes.map((recipe, index) => (
-            <div
-              key={ index }
-              data-testid={ `${index}-recomendation-card` }
-              className="recomendations-card"
-            >
-              <p
-                data-testid={ `${index}-recomendation-title` }
-              >
-                {selectedRecipe.type === 'meals' ? recipe.strDrink : recipe.strMeal}
-
-              </p>
-              <img
-                width="300px"
-                src={ selectedRecipe.type === 'meals'
-                  ? recipe.strDrinkThumb : recipe.strMealThumb }
-                alt=""
-              />
-            </div>))
-        }
-      </div>
-
-      <button className="recipe-btn" data-testid="start-recipe-btn" type="button">
-        Start Recipe
-      </button>
-    </section>);
+    </section>
+  );
 };
 
 export default Recipe;
-
-// Recipe.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   thumb: PropTypes.string.isRequired,
-// };
