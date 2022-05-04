@@ -24,3 +24,13 @@ export const fetchRecipesData = async (type) => {
   const data = await response.json();
   return data;
 };
+
+export const fetchRandomRecipe = async (type) => {
+  const options = {
+    meals: 'https://www.themealdb.com/api/json/v1/1/random.php',
+    drinks: 'https://www.thecocktaildb.com/api/json/v1/1/random.php',
+  };
+  const response = await fetch(options[type]);
+  const data = await response.json();
+  return data[type];
+};
