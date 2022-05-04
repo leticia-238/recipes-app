@@ -99,7 +99,6 @@ const AppProvider = ({ children }) => {
     search,
     setMealsAndDrinks,
     setSelectedRecipe,
-    handleRecipe,
     setSearch,
     inProgressRecipes,
     setInProgressRecipes,
