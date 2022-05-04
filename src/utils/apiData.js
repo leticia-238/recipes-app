@@ -85,3 +85,14 @@ export const getDrinkByLetter = async (firstLetter) => {
   const data = await response.json();
   return data.drinks;
 };
+
+export const getAllIngredients = async (type) => {
+  const options = {
+    meals: 'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
+    drinks: 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
+  };
+
+  const response = await fetch(options[type]);
+  const data = await response.json();
+  return data;
+};
