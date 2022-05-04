@@ -13,6 +13,7 @@ const AppProvider = ({ children }) => {
 
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [search, setSearch] = useState([]);
 
   useEffect(() => {
     const savedInProgressRecipes = getLocalStorage('inProgressRecipes');
@@ -95,7 +96,10 @@ const AppProvider = ({ children }) => {
     meals,
     drinks,
     selectedRecipe,
+    search,
     setMealsAndDrinks,
+    setSelectedRecipe,
+    setSearch,
     inProgressRecipes,
     setInProgressRecipes,
     doneRecipes,
