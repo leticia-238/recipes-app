@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import AppContext from '../context/AppContext';
+import CardRecipes from '../components/CardsRecipe';
 
-const Foods = ({ match: { params: { id } } }) => (
-  <div>
-    { !id && <Header searchButton title="Foods" /> }
-    <h2>Foods Page</h2>
-    { !id && <Footer /> }
-  </div>
-
-);
+const Foods = ({ match: { params: { id } } }) => {
+  const { contextValue: { search } } = useContext(AppContext);
+  const MAX_RECIPES = 12;
+  return (
+    <div>
+      { !id && <Header title="Foods" /> }
+      <h2>Foods Page</h2>
+      <div>
+        { search.length > 0
+          ? (
+            search.slice(0, MAX_RECIPES).map((item, index) => (
+              <CardRecipes key={ index } recipe={ item } index={ index } />
+            ))
+          )
+          : ('')}
+      </div>
+      { !id && <Footer /> }
+    </div>
+  );
+};
 
 export default Foods;
 

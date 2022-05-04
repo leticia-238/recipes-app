@@ -24,3 +24,55 @@ export const fetchRecipesData = async (type) => {
   const data = await response.json();
   return data;
 };
+
+// para tela de busca do Header
+export const getFoodByIngredient = async (ingredient) => {
+  const ENDPOINT = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  // console.log(response, data);
+  return data.meals;
+};
+
+export const getFoodByName = async (name) => {
+  const ENDPOINT = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  // console.log(response, data);
+  return data.meals;
+};
+
+export const getFoodByLetter = async (firstLetter) => {
+  const ENDPOINT = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  return data.meals;
+};
+
+export const getDrinkByIngredient = async (ingredient) => {
+  try {
+    const ENDPOINT = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+    const response = await fetch(ENDPOINT);
+    // console.log(response.json());
+    const data = await response.json();
+    // console.log(data);
+    return data.drinks;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getDrinkByName = async (name) => {
+  const ENDPOINT = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  // console.log(response, data);
+  return data.drinks;
+};
+
+export const getDrinkByLetter = async (firstLetter) => {
+  const ENDPOINT = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  return data.drinks;
+};
