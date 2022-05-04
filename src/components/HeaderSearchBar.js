@@ -6,7 +6,7 @@ import { getFoodByIngredient, getFoodByName, getFoodByLetter,
 import AppContext from '../context/AppContext';
 
 const HeaderSearchBar = ({ searchInput }) => {
-  const { contextValue: { search, setSearch } } = useContext(AppContext);
+  const { search, setSearch } = useContext(AppContext);
   const [radioSearch, setRadioSearch] = useState('');
   const location = useLocation();
   const history = useHistory();

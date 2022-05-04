@@ -6,7 +6,7 @@ import AppContext from '../context/AppContext';
 import CardRecipes from '../components/CardsRecipe';
 
 const Foods = ({ match: { params: { id } } }) => {
-  const { contextValue: { search } } = useContext(AppContext);
+  const { search } = useContext(AppContext);
   const MAX_RECIPES = 12;
   return (
     <div>
