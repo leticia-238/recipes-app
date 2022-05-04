@@ -90,6 +90,7 @@ const HeaderSearchBar = ({ searchInput }) => {
           type="radio"
           id="ingredient"
           name="ingredient"
+          checked={ radioSearch === 'ingredient' }
           onChange={ (e) => setRadioSearch(e.target.name) }
         />
       </label>
@@ -100,6 +101,7 @@ const HeaderSearchBar = ({ searchInput }) => {
           type="radio"
           id="name"
           name="name"
+          checked={ radioSearch === 'name' }
           onChange={ (e) => setRadioSearch(e.target.name) }
         />
       </label>
@@ -110,6 +112,7 @@ const HeaderSearchBar = ({ searchInput }) => {
           type="radio"
           id="first-letter"
           name="first-letter"
+          checked={ radioSearch === 'first-letter' }
           onChange={ (e) => setRadioSearch(e.target.name) }
         />
       </label>
