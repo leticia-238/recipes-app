@@ -1,0 +1,110 @@
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
+import ShareIcon from '../images/shareIcon.svg';
+import AppContext from '../context/AppContext';
+import useCopyLink from '../hooks/useCopyLink';
+
+const RecipesList = () => {
+  const { doneRecipes } = useContext(AppContext);
+
+  const history = useHistory();
+
+  const [recipesList, setRecipesList] = useState([]);
+
+  useEffect(() => {
+    if (doneRecipes.length > 0) {
+      setRecipesList(doneRecipes);
+    }
+  }, [doneRecipes]);
+
+  const { isLinkCopied, copyLink } = useCopyLink();
+
+  const filterRecipes = (type) => {
+    setRecipesList(doneRecipes.filter((recipe) => (recipe.type === type)));
+  };
+
+  const redirectToFoodsDetails = (type, id) => {
+    history.push(`/${type}s/${id}`);
+  };
+
+  return (
+    <div>
+      <button
+        type="button"
+        data-testid="filter-by-all-btn"
+        onClick={ () => { setRecipesList(doneRecipes); } }
+      >
+        Filter All
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-food-btn"
+        onClick={ () => { filterRecipes('food'); } }
+      >
+        Filter Food
+      </button>
+      <button
+        type="button"
+        data-testid="filter-by-drink-btn"
+        onClick={ () => { filterRecipes('drink'); } }
+      >
+        Filter Drinks
+      </button>
+      { recipesList.length > 0
+        && recipesList.map((
+          { id, category, name, alcoholicOrNot, nationality, type,
+            image, doneDate, tags }, index,
+        ) => (
+          <Card style={ { width: '18rem' } } key={ id }>
+            {/* <input
+                type="image"
+                src={ image }
+                alt={ name }
+                data-testid={ `${index}-horizontal-image` }
+                onClick={ () => { history.push(`/foods/${id}`); } }
+              /> */}
+            <Card.Img
+              variant="top"
+              src={ image }
+              alt={ name }
+              data-testid={ `${index}-horizontal-image` }
+              onClick={ () => { redirectToFoodsDetails(type, id); } }
+            />
+            <Card.Body>
+              <Card.Title data-testid={ `${index}-horizontal-top-text` }>
+                { type === 'food'
+                  ? `${nationality} - ${category}` : `${alcoholicOrNot}` }
+              </Card.Title>
+              <button
+                type="button"
+                data-testid={ `${index}-horizontal-name` }
+                onClick={ () => { redirectToFoodsDetails(type, id); } }
+              >
+                {name}
+              </button>
+              <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
+              <p>{alcoholicOrNot}</p>
+              {tags.map((tagName, tagIndex) => (
+                <p
+                  key={ tagIndex }
+                  data-testid={ `${index}-${tagName}-horizontal-tag` }
+                >
+                  {tagName}
+                </p>
+              ))}
+              <input
+                type="image"
+                src={ ShareIcon }
+                alt="Share Recipe"
+                data-testid={ `${index}-horizontal-share-btn` }
+                onClick={ () => { copyLink(type, id); } }
+              />
+            </Card.Body>
+          </Card>))}
+      { isLinkCopied && <span>Link copied!</span> }
+    </div>
+  );
+};
+
+export default RecipesList;

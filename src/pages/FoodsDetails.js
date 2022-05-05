@@ -49,7 +49,7 @@ const FoodsDetails = ({ match: { params: { id } } }) => {
       {
         !recipeIsDone && (
           <ButtonStartRecipe
-            toPath={ () => history.push(`/foods/${id}/in-progress`) }
+            toPath={ () => { history.push(`/foods/${id}/in-progress`); } }
             title={ recipeInProgress ? 'Continue Recipe' : 'Start Recipe' }
           />
         )
