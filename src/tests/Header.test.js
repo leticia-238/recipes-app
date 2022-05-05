@@ -8,6 +8,7 @@ import renderWithRouterAndContext from './helpers/renderWithRouterAndContext';
 const THREE = 3;
 const PATH_EXP_FOODS = '/explore/foods';
 const PATH_EXP_DRINKS = '/explore/drinks';
+const PATH_EXP_FOODS_NATIONALITY = '/explore/foods/nationalities';
 
 describe('Teste o componente Header/HeaderSearchBar', () => {
   it('teste se contém um header na tela Foods', () => {
@@ -119,7 +120,7 @@ describe('Teste o componente Header/HeaderSearchBar', () => {
     const btnByNationality = screen.getByRole('button', { name: /By Nationality/i });
     expect(btnByNationality).toBeInTheDocument();
     userEvent.click(btnByNationality);
-    expect(history.location.pathname).toBe('/explore/foods/nationalities');
+    expect(history.location.pathname).toBe(PATH_EXP_FOODS_NATIONALITY);
 
     history.push(PATH_EXP_FOODS);
     const btnBySurprise = screen.getByRole('button', { name: /Surprise me/i });
@@ -167,7 +168,7 @@ describe('Teste o componente Header/HeaderSearchBar', () => {
 
   it('teste se contém um header na tela Explore Nationalities', () => {
     const { history } = renderWithRouterAndContext(<App />);
-    history.push('/explore/foods/nationalities');
+    history.push(PATH_EXP_FOODS_NATIONALITY);
 
     const exploreNationalityTitle = screen.getByRole('heading',
       { name: /Explore Nationalities/i, level: 1 });
@@ -179,7 +180,7 @@ describe('Teste o componente Header/HeaderSearchBar', () => {
     expect(history.location.pathname).toBe('/profile');
 
     // botão "search" no header
-    history.push('/explore/foods/nationalities');
+    history.push(PATH_EXP_FOODS_NATIONALITY);
     const btnSearch = screen.getByAltText(/search button/i);
     expect(btnSearch).toBeInTheDocument();
     userEvent.click(btnSearch);
