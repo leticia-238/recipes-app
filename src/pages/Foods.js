@@ -6,7 +6,7 @@ import AppContext from '../context/AppContext';
 import CardRecipes from '../components/CardsRecipe';
 
 const Foods = ({ match: { params: { id } } }) => {
-  const { search } = useContext(AppContext);
+  const { search, meals } = useContext(AppContext);
   const MAX_RECIPES = 12;
   return (
     <div>
@@ -14,11 +14,16 @@ const Foods = ({ match: { params: { id } } }) => {
       <h2>Foods Page</h2>
       <div>
         { search.length > 0
-          ? (
+          && (
             search.slice(0, MAX_RECIPES).map((item, index) => (
               <CardRecipes key={ index } recipe={ item } index={ index } />
             ))
-          ) : ('')}
+          )}
+        {
+          meals.slice(0, MAX_RECIPES).map((item, index) => (
+            <CardRecipes key={ index } recipe={ item } index={ index } />
+          ))
+        }
       </div>
       { !id && <Footer /> }
     </div>
