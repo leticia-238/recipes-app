@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import ShareIcon from '../images/shareIcon.svg';
 import AppContext from '../context/AppContext';
-import useCopyLink from '../hooks/useCopyLink';
+import ButtonShare from './ButtonShare';
 
 const RecipesList = () => {
   const { doneRecipes } = useContext(AppContext);
@@ -17,8 +16,6 @@ const RecipesList = () => {
       setRecipesList(doneRecipes);
     }
   }, [doneRecipes]);
-
-  const { isLinkCopied, copyLink } = useCopyLink();
 
   const filterRecipes = (type) => {
     setRecipesList(doneRecipes.filter((recipe) => (recipe.type === type)));
@@ -93,16 +90,13 @@ const RecipesList = () => {
                   {tagName}
                 </p>
               ))}
-              <input
-                type="image"
-                src={ ShareIcon }
-                alt="Share Recipe"
-                data-testid={ `${index}-horizontal-share-btn` }
-                onClick={ () => { copyLink(type, id); } }
+              <ButtonShare
+                testid={ `${index}-horizontal-share-btn` }
+                url={ `http://localhost:3000/${type}s/${id}` }
               />
             </Card.Body>
-          </Card>))}
-      { isLinkCopied && <span>Link copied!</span> }
+          </Card>
+        ))}
     </div>
   );
 };
