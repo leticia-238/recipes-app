@@ -11,7 +11,6 @@ const Foods = ({ match: { params: { id } } }) => {
   return (
     <div>
       { !id && <Header title="Foods" /> }
-      <h2>Foods Page</h2>
       <div>
         { search.length > 0
           ? (
