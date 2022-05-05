@@ -18,8 +18,7 @@ const Foods = ({ match: { params: { id } } }) => {
             search.slice(0, MAX_RECIPES).map((item, index) => (
               <CardRecipes key={ index } recipe={ item } index={ index } />
             ))
-          )
-          : ('')}
+          ) : ('')}
       </div>
       { !id && <Footer /> }
     </div>
