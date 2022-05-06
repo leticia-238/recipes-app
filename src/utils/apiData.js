@@ -85,3 +85,10 @@ export const getDrinkByLetter = async (firstLetter) => {
   const data = await response.json();
   return data.drinks;
 };
+
+export const getFoodsNationalityList = async () => {
+  const ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  return data.meals;
+};
