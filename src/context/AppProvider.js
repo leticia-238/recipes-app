@@ -11,8 +11,10 @@ const AppProvider = ({ children }) => {
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
-  const [meals, setMeals] = useState([]);
-  const [drinks, setDrinks] = useState([]);
+  const [mealsAndDrinksData, setMealsAndDrinksData] = useState(
+    { meals: [], drinks: [] },
+  );
+
   const [search, setSearch] = useState([]);
 
   useEffect(() => {
@@ -33,8 +35,10 @@ const AppProvider = ({ children }) => {
     const getRecipes = async () => {
       const mealsData = await fetchRecipesData('meals');
       const drinksData = await fetchRecipesData('drinks');
-      setDrinks(drinksData.drinks);
-      setMeals(mealsData.meals);
+      setMealsAndDrinksData({
+        meals: mealsData.meals,
+        drinks: drinksData.drinks,
+      });
     };
     getRecipes();
   }, []);
@@ -96,8 +100,7 @@ const AppProvider = ({ children }) => {
   }, [getIngredientsAndMeasures]);
 
   const contextValue = {
-    meals,
-    drinks,
+    mealsAndDrinksData,
     selectedRecipe,
     search,
     setMealsAndDrinks,

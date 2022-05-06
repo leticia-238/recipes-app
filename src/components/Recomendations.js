@@ -2,12 +2,13 @@ import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 const Recomendations = () => {
-  const { selectedRecipe, meals, drinks } = useContext(AppContext);
+  const { selectedRecipe,
+    mealsAndDrinksData: { meals, drinks } } = useContext(AppContext);
 
   const sixthRecipe = 6;
   const firstSixRecipes = selectedRecipe.type === 'meals'
-    ? drinks.slice(0, sixthRecipe)
-    : meals.slice(0, sixthRecipe);
+    ? [...drinks].slice(0, sixthRecipe)
+    : [...meals].slice(0, sixthRecipe);
 
   return (
     <div className="recomendations-container">
