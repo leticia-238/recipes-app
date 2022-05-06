@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import AppContext from '../context/AppContext';
 import { getFoodsNationalityList } from '../utils/apiData';
 
+<<<<<<< HEAD
 const ExploreNationalities = () => {
   const [nationalities, setNationalities] = useState([]);
   const [nationality, setNationality] = useState('All');
