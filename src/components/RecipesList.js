@@ -66,13 +66,13 @@ const RecipesList = () => {
                 { type === 'food'
                   ? `${nationality} - ${category}` : `${alcoholicOrNot}` }
               </Card.Title>
-              <button
-                type="button"
+              <Card.Subtitle
+                className="mb-2 text-muted"
                 data-testid={ `${index}-horizontal-name` }
                 onClick={ () => { redirectToFoodsDetails(type, id); } }
               >
                 {name}
-              </button>
+              </Card.Subtitle>
               <p data-testid={ `${index}-horizontal-done-date` }>{doneDate}</p>
               <p>{alcoholicOrNot}</p>
               {tags.map((tagName, tagIndex) => (
