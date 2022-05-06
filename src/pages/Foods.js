@@ -7,7 +7,7 @@ import CardRecipes from '../components/CardsRecipe';
 import { getFoodsCategory } from '../utils/apiData';
 
 const Foods = ({ match: { params: { id } } }) => {
-  const { search, meals } = useContext(AppContext);
+  const { search, mealsAndDrinksData: { meals } } = useContext(AppContext);
   const MAX_RECIPES = 12;
   const MAX_CATEGORY = 5;
   const [category, setCategory] = useState([]);
@@ -31,7 +31,7 @@ const Foods = ({ match: { params: { id } } }) => {
             { item.strCategory }
           </button>))
       }
-      <h2>Foods Page</h2>
+      { !id && <Header title="Foods" searchButton /> }
       <div>
         { search.length > 0
           && (

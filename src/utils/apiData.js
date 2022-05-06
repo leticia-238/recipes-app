@@ -25,6 +25,15 @@ export const fetchRecipesData = async (type) => {
   return data;
 };
 
+export const fetchRandomRecipe = async (type) => {
+  const options = {
+    meals: 'https://www.themealdb.com/api/json/v1/1/random.php',
+    drinks: 'https://www.thecocktaildb.com/api/json/v1/1/random.php',
+  };
+  const response = await fetch(options[type]);
+  const data = await response.json();
+  return data[type];
+};
 // para tela de busca do Header
 export const getFoodByIngredient = async (ingredient) => {
   const ENDPOINT = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;

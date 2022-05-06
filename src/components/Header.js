@@ -5,7 +5,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import HeaderSearchBar from './HeaderSearchBar';
 
-const Header = ({ title, searchButton = true }) => {
+const Header = ({ title, searchButton }) => {
   const { push } = useHistory();
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [searchInput, setSearchInput] = useState(''); // Vi

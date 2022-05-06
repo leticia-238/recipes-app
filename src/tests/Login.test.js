@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { fireEvent, screen } from '@testing-library/react';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
+import renderWithRouterAndContext from './helpers/renderWithRouterAndContext';
 
 const EMAIL_TEST_ID = 'email-input';
 const PASSWORD_TEST_ID = 'password-input';
@@ -55,7 +56,7 @@ describe('Testa a Tela de Login', () => {
   });
   it('Redireciona a pessoa para a tela principal de receitas de comidas após clicar'
   + ' no botão', () => {
-    const { history } = renderWithRouter(<App />);
+    const { history } = renderWithRouterAndContext(<App />);
 
     const email = screen.getByTestId(EMAIL_TEST_ID);
     const password = screen.getByTestId(PASSWORD_TEST_ID);

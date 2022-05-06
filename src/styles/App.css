@@ -3,6 +3,10 @@
   position: fixed;
 }
 
+.page-title {
+  text-transform: capitalize;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;

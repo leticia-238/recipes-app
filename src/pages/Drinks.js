@@ -7,7 +7,7 @@ import AppContext from '../context/AppContext';
 import { getDrinksCategory } from '../utils/apiData';
 
 const Drinks = ({ match: { params: { id } } }) => {
-  const { search, drinks } = useContext(AppContext);
+  const { search, mealsAndDrinksData: { drinks } } = useContext(AppContext);
   const MAX_RECIPES = 12;
   const MAX_CATEGORY = 5;
   const [category, setCategory] = useState([]);
@@ -31,7 +31,7 @@ const Drinks = ({ match: { params: { id } } }) => {
             { item.strCategory }
           </button>))
       }
-      <h2>Drinks Page</h2>
+      { !id && <Header title="Drinks" searchButton /> }
       <div>
         { search.length > 0
           && (

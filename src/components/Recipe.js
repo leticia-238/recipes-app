@@ -1,9 +1,8 @@
-import React, { useCallback, useContext, useState } from 'react';
-import copy from 'clipboard-copy';
+import React, { useContext, useState } from 'react';
 import AppContext from '../context/AppContext';
 import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
-import ShareIcon from '../images/shareIcon.svg';
+import ButtonShare from './ButtonShare';
 
 const Recipe = () => {
   const { selectedRecipe, favoriteRecipes, setFavoriteRecipes } = useContext(AppContext);
@@ -21,19 +20,9 @@ const Recipe = () => {
     image,
   };
 
-  const [isFavorite, setIsFavorite] = useState(favoriteRecipes.some((recipe) => (
-    recipe.id === id)));
+  const getFavorites = (list) => (list.some((recipe) => (recipe.id === id)));
 
-  const [isLinkCopied, setIsLinkCopied] = useState(false);
-
-  const handleShareClick = useCallback(() => {
-    setIsLinkCopied(true);
-    copy(recipeUrl);
-    const messageTime = 5000;
-    setInterval(() => {
-      setIsLinkCopied(false);
-    }, messageTime);
-  }, [recipeUrl]);
+  const [isFavorite, setIsFavorite] = useState(() => getFavorites(favoriteRecipes));
 
   return (
     <section className="recipe">
@@ -45,13 +34,7 @@ const Recipe = () => {
         { alcoholicOrNot }
       </p>
       <div className="recipes-buttons">
-        <input
-          data-testid="share-btn"
-          type="image"
-          src={ ShareIcon }
-          alt="Compartilhar Receita"
-          onClick={ handleShareClick }
-        />
+        <ButtonShare testid="share-btn" url={ recipeUrl } />
         <input
           data-testid="favorite-btn"
           type="image"
@@ -67,7 +50,6 @@ const Recipe = () => {
             }
           } }
         />
-        {isLinkCopied && <span>Link copied!</span>}
       </div>
 
       <section className="recipe-instructions">
