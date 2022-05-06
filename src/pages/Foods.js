@@ -20,7 +20,7 @@ const Foods = ({ match: { params: { id } } }) => {
   }, []);
   return (
     <div>
-      { !id && <Header title="Foods" /> }
+      { !id && <Header title="Foods" searchButton /> }
       {
         category.slice(0, MAX_CATEGORY).map((item, index) => (
           <button
@@ -31,7 +31,7 @@ const Foods = ({ match: { params: { id } } }) => {
             { item.strCategory }
           </button>))
       }
-      { !id && <Header title="Foods" searchButton /> }
+
       <div>
         { search.length > 0
           && (
