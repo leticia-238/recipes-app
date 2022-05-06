@@ -3,13 +3,13 @@ import CardRecipes from '../components/CardsRecipe';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import AppContext from '../context/AppContext';
-import { getFoodsNationalityList } from '../utils/apiData';
+import { getFoodsNationalityList, getFoodsByNationality } from '../utils/apiData';
 
-<<<<<<< HEAD
 const ExploreNationalities = () => {
   const [nationalities, setNationalities] = useState([]);
   const [nationality, setNationality] = useState('All');
-  const { meals } = useContext(AppContext);
+  const [filteredMeals, setFilteredMeals] = useState([]);
+  const { mealsAndDrinksData: { meals } } = useContext(AppContext);
 
   const MAX_RECIPES = 12;
 
@@ -21,6 +21,17 @@ const ExploreNationalities = () => {
     getNationalities();
   }, []);
 
+  const handleChange = async ({ target }) => {
+    if (target.value === 'All') {
+      setNationality(target.value);
+      setFilteredMeals(meals);
+    } else {
+      setNationality(target.value);
+      const result = await getFoodsByNationality(target.value);
+      setFilteredMeals(result);
+    }
+  };
+
   // p/ All = https://www.themealdb.com/api/json/v1/1/search.php?s=
   // p/ d+ options = https://www.themealdb.com/api/json/v1/1/filter.php?a=${nationality}
 
@@ -29,14 +40,16 @@ const ExploreNationalities = () => {
     <div>
       {/* {console.log(nationality)} */}
       {console.log(meals)}
+      {console.log(filteredMeals)}
       <Header
         title="Explore Nationalities"
+        searchButton
       />
       <div>
         <select
           data-testid="explore-by-nationality-dropdown"
           value={ nationality }
-          onChange={ (event) => setNationality(event.target.value) }
+          onChange={ handleChange }
         >
           <option data-testid="All-option">All</option>
           {nationalities.map((option) => (
@@ -50,15 +63,17 @@ const ExploreNationalities = () => {
         </select>
       </div>
       <div>
-        {/* { nationality === 'All'
-          && (
-            meals.slice(0, MAX_RECIPES).map((item, index) => (
+        { nationality === 'All'
+          ? (
+            [...meals].slice(0, MAX_RECIPES).map((item, index) => (
               <CardRecipes key={ index } recipe={ item } index={ index } />
             ))
-          )} */}
-        {/* search.slice(0, MAX_RECIPES).map((item, index) => (
+          )
+          : (
+            [...filteredMeals].slice(0, MAX_RECIPES).map((item, index) => (
               <CardRecipes key={ index } recipe={ item } index={ index } />
-            )) */}
+            ))
+          )}
       </div>
       <Footer />
     </div>
