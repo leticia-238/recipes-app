@@ -56,7 +56,7 @@ const FoodsDetails = ({ match: { params: { id } } }) => {
       }
       <h1>Foods Details</h1>
       <section className="recipe-video">
-        <video data-testid="video" width="400" height="400" src="">
+        <video data-testid="video" width="400" height="400" src={ selectedRecipe.video }>
           <track kind="captions" />
         </video>
       </section>

@@ -54,13 +54,6 @@ const RecipesList = () => {
             image, doneDate, tags }, index,
         ) => (
           <Card style={ { width: '18rem' } } key={ id }>
-            {/* <input
-                type="image"
-                src={ image }
-                alt={ name }
-                data-testid={ `${index}-horizontal-image` }
-                onClick={ () => { history.push(`/foods/${id}`); } }
-              /> */}
             <Card.Img
               variant="top"
               src={ image }

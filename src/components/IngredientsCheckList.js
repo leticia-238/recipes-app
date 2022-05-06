@@ -1,13 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ToggleButton } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
 const IngredientsCheckList = () => {
   const { selectedRecipe, inProgressRecipes, setInProgressRecipes,
     doneRecipes, setDoneRecipes } = useContext(AppContext);
 
+  const history = useHistory();
+
   const { ingredientsList, type, id } = selectedRecipe;
   const [isCheckedIngredients, setIsCheckedIngredients] = useState({});
+
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const doneRecipe = {
+    ...selectedRecipe,
+    type: type === 'meals' ? 'food' : 'drink',
+    doneDate: '23/06/2020',
+  };
 
   useEffect(() => {
     let savedIngredients = [];
@@ -49,9 +60,11 @@ const IngredientsCheckList = () => {
                 setIsCheckedIngredients(obj);
                 saveCheckedIngredients(obj);
                 if (!(Object.values(obj).includes(false))) {
-                  setDoneRecipes([...doneRecipes, selectedRecipe]);
+                  setDoneRecipes([...doneRecipes, doneRecipe]);
+                  setIsDisabled(false);
                 } else {
                   setDoneRecipes(doneRecipes.filter((recipe) => (recipe.id !== id)));
+                  setIsDisabled(true);
                 }
               } }
             >
@@ -59,6 +72,16 @@ const IngredientsCheckList = () => {
             </ToggleButton>
           </div>))
       }
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        disabled={ isDisabled }
+        onClick={ () => {
+          history.push('/done-recipes');
+        } }
+      >
+        FinishRecipe
+      </button>
     </section>
   );
 };

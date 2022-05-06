@@ -20,8 +20,9 @@ const Recipe = () => {
     image,
   };
 
-  const [isFavorite, setIsFavorite] = useState(favoriteRecipes.some((recipe) => (
-    recipe.id === id)));
+  const getFavorites = (list) => (list.some((recipe) => (recipe.id === id)));
+
+  const [isFavorite, setIsFavorite] = useState(() => getFavorites(favoriteRecipes));
 
   return (
     <section className="recipe">

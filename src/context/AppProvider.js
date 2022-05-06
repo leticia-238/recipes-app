@@ -63,7 +63,8 @@ const AppProvider = ({ children }) => {
 
   const setMealsAndDrinks = useCallback(async (type, id) => {
     const recipe = type === 'meals' ? await fetchMeals(id) : await fetchDrinks(id);
-    const recipeUrl = type === 'meals' ? `http://localhost:3000/foods/${id}` : `http://localhost:3000/drinks/${id}`;
+    const recipeType = type === 'meals' ? 'foods' : 'drinks';
+    const recipeUrl = `http://localhost:3000/${recipeType}/${id}`;
 
     const options = {
       meals: {
@@ -86,6 +87,8 @@ const AppProvider = ({ children }) => {
       nationality: recipe[0].strArea,
       instructions: recipe[0].strInstructions,
       ingredientsList: getIngredientsAndMeasures(recipe[0]),
+      tags: recipe[0].strTags ? recipe[0].strTags.split(',') : [],
+      video: recipe[0].strYoutube,
       ...options[type],
       recipeUrl,
     };
