@@ -16,5 +16,5 @@ export default ButtonStartRecipe;
 
 ButtonStartRecipe.propTypes = {
   title: PropTypes.string.isRequired,
-  toPath: PropTypes.string.isRequired,
+  toPath: PropTypes.func.isRequired,
 };

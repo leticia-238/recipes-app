@@ -6,6 +6,7 @@ const ExploreNationalities = () => (
   <div>
     <Header
       title="Explore Nationalities"
+      searchButton
     />
     <Footer />
   </div>

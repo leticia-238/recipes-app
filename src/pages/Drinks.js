@@ -10,7 +10,8 @@ const Drinks = ({ match: { params: { id } } }) => {
   const MAX_RECIPES = 12;
   return (
     <div>
-      { !id && <Header title="Drinks" /> }
+      { !id && <Header title="Drinks" searchButton /> }
+      <h2>Drinks Page</h2>
       <div>
         { search.length > 0
           ? (

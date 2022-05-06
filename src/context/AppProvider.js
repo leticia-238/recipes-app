@@ -11,8 +11,10 @@ const AppProvider = ({ children }) => {
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
-  const [meals, setMeals] = useState([]);
-  const [drinks, setDrinks] = useState([]);
+  const [mealsAndDrinksData, setMealsAndDrinksData] = useState(
+    { meals: [], drinks: [] },
+  );
+
   const [search, setSearch] = useState([]);
 
   useEffect(() => {
@@ -33,8 +35,10 @@ const AppProvider = ({ children }) => {
     const getRecipes = async () => {
       const mealsData = await fetchRecipesData('meals');
       const drinksData = await fetchRecipesData('drinks');
-      setDrinks(drinksData);
-      setMeals(mealsData);
+      setMealsAndDrinksData({
+        meals: mealsData.meals,
+        drinks: drinksData.drinks,
+      });
     };
     getRecipes();
   }, []);
@@ -63,7 +67,8 @@ const AppProvider = ({ children }) => {
 
   const setMealsAndDrinks = useCallback(async (type, id) => {
     const recipe = type === 'meals' ? await fetchMeals(id) : await fetchDrinks(id);
-    const recipeUrl = type === 'meals' ? `http://localhost:3000/foods/${id}` : `http://localhost:3000/drinks/${id}`;
+    const recipeType = type === 'meals' ? 'foods' : 'drinks';
+    const recipeUrl = `http://localhost:3000/${recipeType}/${id}`;
 
     const options = {
       meals: {
@@ -86,6 +91,8 @@ const AppProvider = ({ children }) => {
       nationality: recipe[0].strArea,
       instructions: recipe[0].strInstructions,
       ingredientsList: getIngredientsAndMeasures(recipe[0]),
+      tags: recipe[0].strTags ? recipe[0].strTags.split(',') : [],
+      video: recipe[0].strYoutube,
       ...options[type],
       recipeUrl,
     };
@@ -93,8 +100,7 @@ const AppProvider = ({ children }) => {
   }, [getIngredientsAndMeasures]);
 
   const contextValue = {
-    meals,
-    drinks,
+    mealsAndDrinksData,
     selectedRecipe,
     search,
     setMealsAndDrinks,
