@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import CardRecipes from '../components/CardsRecipe';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -10,6 +11,7 @@ const ExploreNationalities = () => {
   const [nationality, setNationality] = useState('All');
   const [filteredMeals, setFilteredMeals] = useState([]);
   const { mealsAndDrinksData: { meals } } = useContext(AppContext);
+  const history = useHistory();
 
   const MAX_RECIPES = 12;
 
@@ -32,11 +34,11 @@ const ExploreNationalities = () => {
     }
   };
 
-  // p/ All = https://www.themealdb.com/api/json/v1/1/search.php?s=
-  // p/ d+ options = https://www.themealdb.com/api/json/v1/1/filter.php?a=${nationality}
+  const handleClick = (id) => {
+    history.push(`/foods/${id}`);
+  };
 
   return (
-    // strArea
     <div>
       {/* {console.log(nationality)} */}
       {console.log(meals)}
@@ -66,12 +68,28 @@ const ExploreNationalities = () => {
         { nationality === 'All'
           ? (
             [...meals].slice(0, MAX_RECIPES).map((item, index) => (
-              <CardRecipes key={ index } recipe={ item } index={ index } />
+              <div
+                key={ index }
+                onClick={ () => handleClick(item.idMeal) }
+                aria-hidden="true"
+              >
+                <CardRecipes
+                  key={ index }
+                  recipe={ item }
+                  index={ index }
+                />
+              </div>
             ))
           )
           : (
             [...filteredMeals].slice(0, MAX_RECIPES).map((item, index) => (
-              <CardRecipes key={ index } recipe={ item } index={ index } />
+              <Link to={ `/foods/${item.idMeal}` } key={ index }>
+                <CardRecipes
+                  key={ index }
+                  recipe={ item }
+                  index={ index }
+                />
+              </Link>
             ))
           )}
       </div>
@@ -81,3 +99,6 @@ const ExploreNationalities = () => {
 };
 
 export default ExploreNationalities;
+
+// https://www.codegrepper.com/code-examples/javascript/react+onClick+to+div
+// https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/112261cbc84f5b7d74de9b427b529a10b41faece/docs/rules/no-static-element-interactions.md
