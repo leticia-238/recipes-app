@@ -15,6 +15,7 @@ const Drinks = ({ match: { params: { id } } }) => {
   const MAX_CATEGORY = 5;
   const [category, setCategory] = useState([]);
   const [drinksByCategory, setDrinksByCategory] = useState([]);
+
   useEffect(() => {
     const getCategory = async () => {
       const data = await getDrinksCategory();
@@ -34,18 +35,28 @@ const Drinks = ({ match: { params: { id } } }) => {
   return (
     <div>
       { !id && <Header title="Drinks" searchButton /> }
-      {
-        category.slice(0, MAX_CATEGORY).map((item, index) => (
-          <button
-            onClick={ () => getItensByCategory(item.strCategory) }
-            type="button"
-            key={ index }
-            data-testid={ `${item.strCategory}-category-filter` }
-          >
-            { item.strCategory }
-          </button>))
-      }
+      <div>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ () => setDrinksByCategory([]) }
+        >
+          All
 
+        </button>
+
+        {
+          category.slice(0, MAX_CATEGORY).map((item, index) => (
+            <button
+              onClick={ () => getItensByCategory(item.strCategory) }
+              type="button"
+              key={ index }
+              data-testid={ `${item.strCategory}-category-filter` }
+            >
+              { item.strCategory }
+            </button>))
+        }
+      </div>
       <div>
         { search.length > 0
           && (

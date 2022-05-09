@@ -15,7 +15,7 @@ const Foods = ({ match: { params: { id } } }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [category, setCategory] = useState([]);
   const [mealsByCategory, setMealsByCategory] = useState([]);
-  const [maxRecipes, setMaxRecipes] = useState(MAX_RECIPES);
+
   useEffect(() => {
     const getCategory = async () => {
       const data = await getFoodsCategory();
@@ -23,16 +23,17 @@ const Foods = ({ match: { params: { id } } }) => {
     };
     getCategory();
   }, []);
+
   const getItensByCategory = async (name) => {
     if (selectedCategory === name) {
       setMealsByCategory([]);
-      setMaxRecipes(MAX_RECIPES);
     } else {
       const data = await getFoodsByCategoryName(name);
       setMealsByCategory(data);
     }
     setSelectedCategory(name);
   };
+
   return (
     <div>
       { !id && <Header title="Foods" searchButton /> }
@@ -40,7 +41,9 @@ const Foods = ({ match: { params: { id } } }) => {
         <button
           type="button"
           data-testid="All-category-filter"
-          onClick={ () => setMaxRecipes(meals.length) }
+          onClick={ () => {
+            setMealsByCategory([]);
+          } }
         >
           All
 
@@ -74,7 +77,7 @@ const Foods = ({ match: { params: { id } } }) => {
                 toPath={ () => history.push(`/foods/${item.idMeal}`) }
               />
             )))
-            : meals.slice(0, maxRecipes).map((item, index) => (
+            : meals.slice(0, MAX_RECIPES).map((item, index) => (
               <CardRecipes
                 key={ index }
                 recipe={ item }
