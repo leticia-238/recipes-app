@@ -34,10 +34,6 @@ const ExploreNationalities = () => {
     }
   };
 
-  const handleClick = (id) => {
-    history.push(`/foods/${id}`);
-  };
-
   return (
     <div>
       {/* {console.log(nationality)} */}
@@ -68,17 +64,14 @@ const ExploreNationalities = () => {
         { nationality === 'All'
           ? (
             [...meals].slice(0, MAX_RECIPES).map((item, index) => (
-              <div
+
+              <CardRecipes
                 key={ index }
-                onClick={ () => handleClick(item.idMeal) }
-                aria-hidden="true"
-              >
-                <CardRecipes
-                  key={ index }
-                  recipe={ item }
-                  index={ index }
-                />
-              </div>
+                recipe={ item }
+                index={ index }
+                toPath={ () => history.push(`/foods/${item.idMeal}`) }
+              />
+
             ))
           )
           : (
