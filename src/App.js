@@ -18,6 +18,7 @@ import ExploreNationalities from './pages/ExploreNationalities';
 import FoodsDetails from './pages/FoodsDetails';
 import DrinksDetails from './pages/DrinkDetails';
 import RecipeInProgress from './pages/RecipeInProgress';
+import NotFound from './pages/NotFound';
 
 const App = () => (
 
@@ -50,6 +51,7 @@ const App = () => (
     <Route exact path="/profile" component={ Profile } />
     <Route exact path="/done-recipes" component={ DoneRecipes } />
     <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+    <Route path="*" component={ NotFound } />
   </Switch>
 );
 
