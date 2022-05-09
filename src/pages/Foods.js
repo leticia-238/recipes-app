@@ -20,20 +20,22 @@ const Foods = ({ match: { params: { id } } }) => {
     };
     getCategory();
   }, []);
-  useEffect(() => {
-    const getItensByCategory = async () => {
-      const data = await getFoodsByCategoryName(selectedCategory);
+  const getItensByCategory = async (name) => {
+    if (selectedCategory === name) {
+      setMealsByCategory([]);
+    } else {
+      const data = await getFoodsByCategoryName(name);
       setMealsByCategory(data);
-    };
-    getItensByCategory();
-  }, [selectedCategory]);
+    }
+    setSelectedCategory(name);
+  };
   return (
     <div>
       { !id && <Header title="Foods" searchButton /> }
       {
         category.slice(0, MAX_CATEGORY).map((item, index) => (
           <button
-            onClick={ () => setSelectedCategory(item.strCategory) }
+            onClick={ () => getItensByCategory(item.strCategory) }
             type="button"
             key={ index }
             data-testid={ `${item.strCategory}-category-filter` }
@@ -50,7 +52,7 @@ const Foods = ({ match: { params: { id } } }) => {
             ))
           )}
         {
-          selectedCategory.length > 0 ? (
+          mealsByCategory.length > 0 ? (
             mealsByCategory.slice(0, MAX_RECIPES).map((item, index) => (
               <CardRecipes key={ index } recipe={ item } index={ index } />
             )))
