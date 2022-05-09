@@ -1,28 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
-import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
-import BlackHeartIcon from '../images/blackHeartIcon.svg';
+import ButtonFavorite from './ButtonFavorite';
 import ButtonShare from './ButtonShare';
 
 const Recipe = () => {
-  const { selectedRecipe, favoriteRecipes, setFavoriteRecipes } = useContext(AppContext);
-
-  const { id, type, nationality, category, alcoholicOrNot, name, image,
-    instructions, recipeUrl } = selectedRecipe;
-
-  const favoriteRecipe = {
-    id,
-    type: type === 'meals' ? 'food' : 'drink',
-    category,
-    alcoholicOrNot,
-    nationality: nationality || '',
-    name,
-    image,
-  };
-
-  const getFavorites = (list) => (list.some((recipe) => (recipe.id === id)));
-
-  const [isFavorite, setIsFavorite] = useState(() => getFavorites(favoriteRecipes));
+  const {
+    selectedRecipe: {
+      id, name, image, recipeUrl, instructions, alcoholicOrNot, category,
+    },
+    selectedRecipe,
+    favoriteRecipes,
+  } = useContext(AppContext);
 
   return (
     <section className="recipe">
@@ -35,23 +23,12 @@ const Recipe = () => {
       </p>
       <div className="recipes-buttons">
         <ButtonShare testid="share-btn" url={ recipeUrl } />
-        <input
-          data-testid="favorite-btn"
-          type="image"
-          src={ isFavorite ? BlackHeartIcon : WhiteHeartIcon }
-          alt="Favoritar Receita"
-          onClick={ () => {
-            setIsFavorite(!isFavorite);
-            if (!isFavorite) {
-              setFavoriteRecipes([...favoriteRecipes, favoriteRecipe]);
-            } else {
-              setFavoriteRecipes(favoriteRecipes.filter((recipe) => (
-                recipe.id !== id)));
-            }
-          } }
+        <ButtonFavorite
+          testid="favorite-btn"
+          selectedRecipe={ selectedRecipe }
+          defaultState={ favoriteRecipes.some((recipe) => (recipe.id === id)) }
         />
       </div>
-
       <section className="recipe-instructions">
         <h3>Como Preparar</h3>
         <p data-testid="instructions">{instructions}</p>
