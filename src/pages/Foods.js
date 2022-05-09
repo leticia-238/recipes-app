@@ -67,8 +67,22 @@ const Foods = ({ match: { params: { id } } }) => {
               <CardRecipes key={ index } recipe={ item } index={ index } />
             ))
           )}
+
         {
-          mealsByCategory.length > 0 ? (
+          search.length === 0 && mealsByCategory.length === 0
+            && (
+              meals.slice(0, MAX_RECIPES).map((item, index) => (
+                <CardRecipes
+                  key={ index }
+                  recipe={ item }
+                  toPath={ () => history.push(`/foods/${item.idMeal}`) }
+                  index={ index }
+                />
+              )))
+        }
+
+        {
+          search.length === 0 && mealsByCategory.length > 0 ? (
             mealsByCategory.slice(0, MAX_RECIPES).map((item, index) => (
               <CardRecipes
                 key={ index }
@@ -77,14 +91,7 @@ const Foods = ({ match: { params: { id } } }) => {
                 toPath={ () => history.push(`/foods/${item.idMeal}`) }
               />
             )))
-            : meals.slice(0, MAX_RECIPES).map((item, index) => (
-              <CardRecipes
-                key={ index }
-                recipe={ item }
-                toPath={ () => history.push(`/foods/${item.idMeal}`) }
-                index={ index }
-              />
-            ))
+            : ''
         }
       </div>
       { !id && <Footer /> }
