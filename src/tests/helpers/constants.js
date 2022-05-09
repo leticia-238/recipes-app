@@ -16,3 +16,5 @@ export const ONE_DRINK_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup
 
 export const MEALS_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 export const DRINKS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
+export const LIST_AREAS = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';

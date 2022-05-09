@@ -41,8 +41,8 @@ const ExploreNationalities = () => {
   return (
     <div>
       {/* {console.log(nationality)} */}
-      {console.log(meals)}
-      {console.log(filteredMeals)}
+      {/* {console.log(meals)}
+      {console.log(filteredMeals)} */}
       <Header
         title="Explore Nationalities"
         searchButton
