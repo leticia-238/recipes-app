@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -7,6 +8,7 @@ import AppContext from '../context/AppContext';
 import { getDrinksCategory, getDrinksByCategoryName } from '../utils/apiData';
 
 const Drinks = ({ match: { params: { id } } }) => {
+  const history = useHistory();
   const { search, mealsAndDrinksData: { drinks } } = useContext(AppContext);
   const MAX_RECIPES = 12;
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -54,10 +56,20 @@ const Drinks = ({ match: { params: { id } } }) => {
         {
           drinksByCategory.length > 0 ? (
             drinksByCategory.slice(0, MAX_RECIPES).map((item, index) => (
-              <CardRecipes key={ index } recipe={ item } index={ index } />
+              <CardRecipes
+                key={ index }
+                recipe={ item }
+                index={ index }
+                toPath={ () => history.push(`/drinks/${item.idDrink}`) }
+              />
             )))
             : drinks.slice(0, MAX_RECIPES).map((item, index) => (
-              <CardRecipes key={ index } recipe={ item } index={ index } />
+              <CardRecipes
+                key={ index }
+                recipe={ item }
+                toPath={ () => history.push(`/drinks/${item.idDrink}`) }
+                index={ index }
+              />
             ))
         }
       </div>
