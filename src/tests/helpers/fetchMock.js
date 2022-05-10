@@ -2,14 +2,17 @@ import oneMeal from '../../../cypress/mocks/oneMeal';
 import oneDrink from '../../../cypress/mocks/oneDrink';
 import meals from '../../../cypress/mocks/meals';
 import drinks from '../../../cypress/mocks/drinks';
+import areas from '../../../cypress/mocks/areas';
 
-import { ONE_MEAL_URL, ONE_DRINK_URL, MEALS_URL, DRINKS_URL } from './constants';
+import { ONE_MEAL_URL, ONE_DRINK_URL, MEALS_URL, DRINKS_URL,
+  LIST_AREAS } from './constants';
 
 const ENDPOINTS = [
   { url: ONE_MEAL_URL, data: oneMeal },
   { url: ONE_DRINK_URL, data: oneDrink },
   { url: MEALS_URL, data: meals },
   { url: DRINKS_URL, data: drinks },
+  { url: LIST_AREAS, data: areas },
 ];
 
 const fetchMock = (receivedUrl) => Promise.resolve({
