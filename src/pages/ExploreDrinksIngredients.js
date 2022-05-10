@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { getAllIngredients } from '../utils/apiData';
+import { getAllIngredients, getDrinkByIngredient } from '../utils/apiData';
+import AppContext from '../context/AppContext';
 
 const ExploreDrinksIngredients = () => {
+  const history = useHistory();
   const [ingredients, setIngredients] = useState([]);
+  const { setSearch } = useContext(AppContext);
   const MAX_INGREDIENTS = 12;
 
   useEffect(() => {
@@ -16,6 +20,12 @@ const ExploreDrinksIngredients = () => {
     getIngredients('drinks');
   }, []);
 
+  const redirectToDrinksWithIngredients = async (ingredientName) => {
+    const result = await getDrinkByIngredient(ingredientName);
+    setSearch(result);
+    history.push('/foods');
+  };
+
   return (
     <div>
       <Header
@@ -24,10 +34,16 @@ const ExploreDrinksIngredients = () => {
       />
       <Footer />
       <div className="foods-igredients">
-        <ul>
+        <ul role="menu">
           {
             ingredients.map(({ strIngredient1 }, index) => (
-              <li key={ index } data-testid={ `${index}-ingredient-card` }>
+              <li
+                role="menuitem"
+                onKeyDown={ () => redirectToDrinksWithIngredients(strIngredient1) }
+                onClick={ () => redirectToDrinksWithIngredients(strIngredient1) }
+                key={ index }
+                data-testid={ `${index}-ingredient-card` }
+              >
                 <img data-testid={ `${index}-card-img` } src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` } alt="" />
                 <span data-testid={ `${index}-card-name` }>{strIngredient1}</span>
               </li>))
