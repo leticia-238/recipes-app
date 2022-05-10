@@ -1,7 +1,58 @@
-.footer {
-  bottom: 0;
-  position: fixed;
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap' ) ;
+
+
+:root {
+
+  --text-color: #474747;
+
+  --bs-gap: 1rem;
+
+  --subtitle: darkgray;
+
+  --bg-component: #f6f5f5;
+
+  --border-color: #e6e6e6;
+
+  --tag-border: 12px;
+
+  --input-border-color: #c4c4c4;
+
+  --bg-color: #f35e5e;
+
+  --btn-recipe-color: #ed2d2d;
+
+  --btn-text-color: white;
+
+  --bd-radius: 6px;
+
+  --box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+
 }
+
+* {
+  font-family: Quicksand , sans-serif;
+}
+
+.custom-grid {
+  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  justify-content: center;
+}
+
+.recipes-grid {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.button-filter {
+  background: var(--bg-color);
+  border: none;
+  border-radius: var(--bd-radius);
+  color: var(--btn-text-color);
+  font-weight: 600;
+  padding: 8px;
+}
+
 
 .page-title {
   text-transform: capitalize;
@@ -94,3 +145,4 @@
     transform: rotate(-10deg);
   }
 }
+

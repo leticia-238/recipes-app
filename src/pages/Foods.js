@@ -35,10 +35,14 @@ const Foods = ({ match: { params: { id } } }) => {
   };
 
   return (
-    <div>
+    <div className="container align-items-center">
       { !id && <Header title="Foods" searchButton /> }
-      <div>
+      <div
+        style={ { gap: '8px', display: 'grid' } }
+        className="p-2 custom-gap custom-grid"
+      >
         <button
+          className="button-filter col"
           type="button"
           data-testid="All-category-filter"
           onClick={ () => {
@@ -51,6 +55,7 @@ const Foods = ({ match: { params: { id } } }) => {
         {
           category.slice(0, MAX_CATEGORY).map((item, index) => (
             <button
+              className="button-filter col"
               onClick={ () => getItensByCategory(item.strCategory) }
               type="button"
               key={ index }
@@ -60,7 +65,15 @@ const Foods = ({ match: { params: { id } } }) => {
             </button>))
         }
       </div>
-      <div>
+      <div
+        style={ { gap: '16px', textOverflow: 'ellipsis' } }
+        className="
+        pt-2
+
+      container
+       custom-grid
+       recipes-grid "
+      >
         { search.length > 0
           && (
             search.slice(0, MAX_RECIPES).map((item, index) => (
