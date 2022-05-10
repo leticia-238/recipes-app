@@ -96,3 +96,46 @@ export const getAllIngredients = async (type) => {
   const data = await response.json();
   return data;
 };
+
+export const getFoodsCategory = async () => {
+  const ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  return data.meals;
+};
+
+export const getDrinksCategory = async () => {
+  const ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  return data.drinks;
+};
+
+// lista de todas as nacionalidades
+export const getFoodsNationalityList = async () => {
+  const ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  return data.meals;
+};
+// p/ filtrar por nacionalidade
+export const getFoodsByNationality = async (nationality) => {
+  const ENDPOINT = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${nationality}`;
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  return data.meals;
+};
+
+export const getFoodsByCategoryName = async (categoryName) => {
+  const ENDPOINT = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}`;
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  return data.meals;
+};
+
+export const getDrinksByCategoryName = async (categoryName) => {
+  const ENDPOINT = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${categoryName}`;
+  const response = await fetch(ENDPOINT);
+  const data = await response.json();
+  return data.drinks;
+};

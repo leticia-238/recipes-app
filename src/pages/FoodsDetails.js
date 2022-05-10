@@ -49,14 +49,14 @@ const FoodsDetails = ({ match: { params: { id } } }) => {
       {
         !recipeIsDone && (
           <ButtonStartRecipe
-            toPath={ () => history.push(`/foods/${id}/in-progress`) }
+            toPath={ () => { history.push(`/foods/${id}/in-progress`); } }
             title={ recipeInProgress ? 'Continue Recipe' : 'Start Recipe' }
           />
         )
       }
       <h1>Foods Details</h1>
       <section className="recipe-video">
-        <video data-testid="video" width="400" height="400" src="">
+        <video data-testid="video" width="400" height="400" src={ selectedRecipe.video }>
           <track kind="captions" />
         </video>
       </section>
