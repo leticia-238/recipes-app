@@ -1,8 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const CardRecipes = ({ recipe, index }) => (
-  <div>
+const CardRecipes = ({ recipe, index, toPath }) => (
+  <div
+    tabIndex={ 0 }
+    role="button"
+    onClick={ () => toPath() }
+    onKeyDown={ () => toPath() }
+  >
     <div data-testid={ `${index}-recipe-card` }>
       <img
         data-testid={ `${index}-card-img` }
@@ -17,6 +22,7 @@ const CardRecipes = ({ recipe, index }) => (
 );
 
 CardRecipes.propTypes = {
+  toPath: PropTypes.func.isRequired,
   recipe: PropTypes.instanceOf(Object).isRequired,
   index: PropTypes.number.isRequired,
 };
