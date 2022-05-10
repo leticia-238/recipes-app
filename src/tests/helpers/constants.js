@@ -17,4 +17,12 @@ export const ONE_DRINK_URL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup
 export const MEALS_URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 export const DRINKS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-export const LIST_AREAS = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+export const LIST_AREAS_URL = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+
+export const MEAL_CATEGORIES_URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+
+export const DRINK_CATEGORIES_URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+
+export const INGREDIENTS_MEAL_URL = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+
+export const INGREDIENTS_DRINK_URL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';

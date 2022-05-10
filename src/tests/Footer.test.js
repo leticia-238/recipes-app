@@ -1,7 +1,8 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, cleanup, act } from '@testing-library/react';
 import App from '../App';
 import renderWithRouterAndContext from './helpers/renderWithRouterAndContext';
+import fetchMock from './helpers/fetchMock';
 
 const checkElementsOnScreen = () => {
   const btnDrink = screen.getByAltText(/drink button/i);
@@ -12,52 +13,76 @@ const checkElementsOnScreen = () => {
   expect(btnMeal).toBeInTheDocument();
 };
 
+beforeEach(() => {
+  localStorage.clear();
+  jest.spyOn(global, 'fetch').mockImplementation(fetchMock);
+});
+
+afterEach(() => {
+  jest.clearAllMocks();
+  cleanup();
+});
+
 describe('Teste o componente Footer', () => {
-  it('teste se contém um footer na tela Foods', () => {
-    const { history } = renderWithRouterAndContext(<App />);
-    history.push('/foods');
+  it('teste se contém um footer na tela Foods', async () => {
+    await act(async () => {
+      const { history } = renderWithRouterAndContext(<App />);
+      history.push('/foods');
+    });
 
     checkElementsOnScreen();
   });
 
-  it('teste se contém um footer na tela Drinks', () => {
-    const { history } = renderWithRouterAndContext(<App />);
-    history.push('/drinks');
+  it('teste se contém um footer na tela Drinks', async () => {
+    await act(async () => {
+      const { history } = renderWithRouterAndContext(<App />);
+      history.push('/drinks');
+    });
 
     checkElementsOnScreen();
   });
 
-  it('teste se contém um footer na tela Explore', () => {
-    const { history } = renderWithRouterAndContext(<App />);
-    history.push('/explore');
+  it('teste se contém um footer na tela Explore', async () => {
+    await act(async () => {
+      const { history } = renderWithRouterAndContext(<App />);
+      history.push('/explore');
+    });
 
     checkElementsOnScreen();
   });
 
-  it('teste se contém um footer na tela Explore Foods', () => {
-    const { history } = renderWithRouterAndContext(<App />);
-    history.push('/explore/foods');
+  it('teste se contém um footer na tela Explore Foods', async () => {
+    await act(async () => {
+      const { history } = renderWithRouterAndContext(<App />);
+      history.push('/explore/foods');
+    });
 
     checkElementsOnScreen();
   });
 
-  it('teste se contém um footer na tela Explore Drinks', () => {
-    const { history } = renderWithRouterAndContext(<App />);
-    history.push('/explore/drinks');
+  it('teste se contém um footer na tela Explore Drinks', async () => {
+    await act(async () => {
+      const { history } = renderWithRouterAndContext(<App />);
+      history.push('/explore/drinks');
+    });
 
     checkElementsOnScreen();
   });
 
-  it('teste se contém um footer na tela Explore Ingredients', () => {
-    const { history } = renderWithRouterAndContext(<App />);
-    history.push('/explore/foods/ingredients');
+  it('teste se contém um footer na tela Explore Ingredients', async () => {
+    await act(async () => {
+      const { history } = renderWithRouterAndContext(<App />);
+      history.push('/explore/foods/ingredients');
+    });
 
     checkElementsOnScreen();
   });
 
-  it('teste se contém um footer na tela Explore Nationalities', () => {
-    const { history } = renderWithRouterAndContext(<App />);
-    history.push('/explore/foods/nationalities');
+  it('teste se contém um footer na tela Explore Nationalities', async () => {
+    await act(async () => {
+      const { history } = renderWithRouterAndContext(<App />);
+      history.push('/explore/foods/nationalities');
+    });
 
     checkElementsOnScreen();
   });
