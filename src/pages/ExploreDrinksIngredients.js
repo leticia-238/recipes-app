@@ -32,7 +32,7 @@ const ExploreDrinksIngredients = () => {
         title="Explore Ingredients"
         searchButton={ false }
       />
-      <Footer />
+
       <div className="foods-igredients">
         <ul role="menu">
           {
@@ -50,6 +50,7 @@ const ExploreDrinksIngredients = () => {
           }
         </ul>
       </div>
+      <Footer />
     </div>
   );
 };
