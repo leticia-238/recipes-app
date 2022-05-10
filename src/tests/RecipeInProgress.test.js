@@ -45,6 +45,36 @@ const checkElementsOnScreen = (numOfIngredients) => {
   expect(btnFinishRecipe).toBeInTheDocument();
 };
 
+const testBtnFinishRecipe = () => {
+  const ingredientsList = screen.getAllByRole('checkbox', { checked: false });
+  const btnFinishRecipe = screen.getByTestId(FINISH_RECIPE_BTN);
+
+  expect(btnFinishRecipe).toBeDisabled();
+
+  ingredientsList.forEach((ingredient) => {
+    userEvent.click(ingredient);
+  });
+
+  expect(btnFinishRecipe).toBeEnabled();
+};
+
+const testRedirectToDoneRecipes = async () => {
+  const btnFinishRecipe = screen.getByTestId(FINISH_RECIPE_BTN);
+  const ingredientsList = screen.getAllByRole('checkbox', { checked: false });
+
+  ingredientsList.forEach((ingredient) => {
+    userEvent.click(ingredient);
+  });
+
+  await act(async () => { userEvent.click(btnFinishRecipe); });
+
+  expect(btnFinishRecipe).not.toBeInTheDocument();
+
+  const titleDoneRecipes = screen.getByText(/Done Recipes/i);
+
+  expect(titleDoneRecipes).toBeInTheDocument();
+};
+
 beforeEach(() => {
   localStorage.clear();
   jest.spyOn(global, 'fetch').mockImplementation(fetchMock);
@@ -64,11 +94,11 @@ describe('Testa a Tela de Receita em Progresso de uma Comida', () => {
   });
 
   it('Verifica se a requisição a API de comidas é feita ao carregar a'
-  + ' página com o id de uma comida', async () => {
+  + ' página com o id de uma comida', () => {
     expect(fetch).toHaveBeenCalledWith(ONE_MEAL_URL);
   });
 
-  it('Verifica elementos na tela de receita em progresso de uma comida', async () => {
+  it('Verifica elementos na tela de receita em progresso de uma comida', () => {
     const numOfIngredients = 8;
     checkElementsOnScreen(numOfIngredients);
   });
@@ -78,14 +108,14 @@ describe('Testa a Tela de Receita em Progresso de uma Comida', () => {
       const { history } = renderWithRouterAndContext(<App />);
       history.push(PATH_TO_FOOD);
 
-      const ingredientsList = await screen.getAllByRole('checkbox', { checked: false });
+      const ingredientsList = screen.getAllByRole('checkbox', { checked: false });
 
       ingredientsList.forEach((ingredient) => {
         userEvent.click(ingredient);
       });
 
       const numOfIngredients = 8;
-      const checkedIngredients = await screen.getAllByRole('checkbox', { checked: true });
+      const checkedIngredients = screen.getAllByRole('checkbox', { checked: true });
 
       expect(checkedIngredients).toHaveLength(numOfIngredients);
     });
@@ -116,6 +146,16 @@ describe('Testa a Tela de Receita em Progresso de uma Comida', () => {
       expect(ingredientsList[7]).not.toBeChecked();
     });
   });
+
+  it('Verifica se o botão de finalizar receita só está habilitado caso todos '
+  + 'os ingrediente forem selecionados', () => {
+    testBtnFinishRecipe();
+  });
+
+  it('Verifica se é redirecionado para a página de receitas feitas, quando o botão'
+  + 'de finalizar receita é clicado', () => {
+    testRedirectToDoneRecipes();
+  });
 });
 
 describe('Testa a Tela de Receita em Progresso de uma Bebida', () => {
@@ -137,21 +177,16 @@ describe('Testa a Tela de Receita em Progresso de uma Bebida', () => {
   });
 
   it('Verifica se todos os ingredientes podem ser selecionados', async () => {
-    await act(async () => {
-      const { history } = renderWithRouterAndContext(<App />);
-      history.push(PATH_TO_DRINK);
+    const ingredientsList = await screen.getAllByRole('checkbox', { checked: false });
 
-      const ingredientsList = await screen.getAllByRole('checkbox', { checked: false });
-
-      ingredientsList.forEach((ingredient) => {
-        userEvent.click(ingredient);
-      });
-
-      const numOfIngredients = 3;
-      const checkedIngredients = await screen.getAllByRole('checkbox', { checked: true });
-
-      expect(checkedIngredients).toHaveLength(numOfIngredients);
+    ingredientsList.forEach((ingredient) => {
+      userEvent.click(ingredient);
     });
+
+    const numOfIngredients = 3;
+    const checkedIngredients = await screen.getAllByRole('checkbox', { checked: true });
+
+    expect(checkedIngredients).toHaveLength(numOfIngredients);
   });
 
   it('Verifica se os ingredientes selecionados ainda estão com o checkbox'
@@ -171,5 +206,15 @@ describe('Testa a Tela de Receita em Progresso de uma Bebida', () => {
       expect(ingredientsList[1]).not.toBeChecked();
       expect(ingredientsList[2]).toBeChecked();
     });
+  });
+
+  it('Verifica se o botão de finalizar receita só está habilitado caso todos '
+  + 'os ingrediente forem selecionados', () => {
+    testBtnFinishRecipe();
+  });
+
+  it('Verifica se é redirecionado para a página de receitas feitas, quando o botão'
+  + 'de finalizar receita é clicado', () => {
+    testRedirectToDoneRecipes();
   });
 });
