@@ -12,16 +12,6 @@ from './helpers/constants';
 const PATH_TO_FOOD = '/foods/52771/in-progress';
 const PATH_TO_DRINK = '/drinks/178319/in-progress';
 
-// const favoriteRecipes = [{
-//   id: '178319',
-//   type: 'drink',
-//   nationality: '',
-//   category: 'Cocktail',
-//   alcoholicOrNot: 'Alcoholic',
-//   name: 'Aquamarine',
-//   image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-// }];
-
 const checkElementsOnScreen = (numOfIngredients) => {
   const recipePhoto = screen.getByTestId(RECIPE_PHOTO);
   const recipeTitle = screen.getByTestId(RECIPE_TITLE);
