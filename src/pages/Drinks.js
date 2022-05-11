@@ -40,7 +40,7 @@ const Drinks = ({ match: { params: { id } } }) => {
 
         <div
           style={ { gap: '8px', display: 'grid' } }
-          className="p-2  custom-grid"
+          className="p-2 custom-grid"
         >
           <button
             className="button-filter col"

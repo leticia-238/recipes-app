@@ -37,11 +37,11 @@ const Foods = ({ match: { params: { id } } }) => {
   return (
     <>
       { !id && <Header title="Foods" searchButton /> }
-      <div className="container align-items-center py-4">
+      <div className="container align-items-center py-4 ">
 
         <div
           style={ { gap: '8px', display: 'grid' } }
-          className="p-2  custom-grid"
+          className=" pb-2 custom-grid"
         >
           <button
             className="button-filter col"
