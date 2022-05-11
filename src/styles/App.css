@@ -5,8 +5,6 @@
 
   --text-color: #474747;
 
-  --bs-gap: 1rem;
-
   --subtitle: darkgray;
 
   --bg-component: #f6f5f5;
@@ -36,12 +34,14 @@
 .custom-grid {
   align-items: flex-start;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   justify-content: center;
 }
 
-.recipes-grid {
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+.footer {
+  bottom: 0;
+  position: fixed;
 }
 
 .button-filter {

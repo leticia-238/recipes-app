@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 const CardRecipes = ({ recipe, index, toPath }) => (
 
   <div
-    style={ { boxShadow: 'var(--box-shadow)' } }
-    className="card h-100"
+    style={ {
+      boxShadow: 'var(--box-shadow)',
+      overflow: 'auto' } }
+    className="card "
     tabIndex={ 0 }
     role="button"
     onClick={ () => toPath() }
@@ -19,10 +21,15 @@ const CardRecipes = ({ recipe, index, toPath }) => (
       alt={ recipe.strMeal || recipe.strDrink }
     />
 
-    <div className="card-body ">
-      <h5 className="card-title text-center" data-testid={ `${index}-card-name` }>
+    <div
+      style={ {
+        height: '100px',
+      } }
+      className="card-body"
+    >
+      <h6 className="card-title text-center fo" data-testid={ `${index}-card-name` }>
         { recipe.strMeal || recipe.strDrink }
-      </h5>
+      </h6>
     </div>
 
   </div>

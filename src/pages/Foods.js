@@ -35,11 +35,11 @@ const Foods = ({ match: { params: { id } } }) => {
   };
 
   return (
-    <div className="container align-items-center">
+    <div className="container align-items-center py-4">
       { !id && <Header title="Foods" searchButton /> }
       <div
         style={ { gap: '8px', display: 'grid' } }
-        className="p-2 custom-gap custom-grid"
+        className="p-2  custom-grid"
       >
         <button
           className="button-filter col"
@@ -66,13 +66,10 @@ const Foods = ({ match: { params: { id } } }) => {
         }
       </div>
       <div
-        style={ { gap: '16px', textOverflow: 'ellipsis' } }
+        style={ { gap: '16px' } }
         className="
         pt-2
-
-      container
-       custom-grid
-       recipes-grid "
+       custom-grid"
       >
         { search.length > 0
           && (
