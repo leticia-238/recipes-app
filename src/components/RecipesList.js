@@ -23,34 +23,52 @@ const RecipesList = ({ recipes }) => {
   };
 
   return (
-    <div>
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ () => { setRecipesList(recipes); } }
+    <div className="container">
+      <div
+        style={ {
+          gap: '16px',
+        } }
+        className="d-flex justify-content-center buttons-group py-4"
       >
-        Filter All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-food-btn"
-        onClick={ () => { filterRecipes('food'); } }
+
+        <button
+          className="button-filter"
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ () => { setRecipesList(recipes); } }
+        >
+          Filter All
+        </button>
+        <button
+          className="button-filter"
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ () => { filterRecipes('food'); } }
+        >
+          Filter Food
+        </button>
+        <button
+          className="button-filter"
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => { filterRecipes('drink'); } }
+        >
+          Filter Drinks
+        </button>
+      </div>
+      <div
+        style={ {
+          gap: '8px',
+        } }
+        className="container p-2 custom-grid"
       >
-        Filter Food
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => { filterRecipes('drink'); } }
-      >
-        Filter Drinks
-      </button>
-      { recipesList.length > 0
+
+        { recipesList.length > 0
         && recipesList.map((recipe, index) => {
           const { id, category, name, alcoholicOrNot, nationality, type, image,
             doneDate, tags } = recipe;
           return (
-            <Card style={ { width: '18rem' } } key={ id }>
+            <Card key={ id }>
               <Card.Img
                 variant="top"
                 src={ image }
@@ -98,6 +116,7 @@ const RecipesList = ({ recipes }) => {
             </Card>
           );
         })}
+      </div>
     </div>
   );
 };
