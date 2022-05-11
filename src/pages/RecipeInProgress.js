@@ -18,7 +18,7 @@ const RecipeInProgress = ({ match: { params: { id } } }) => {
   const conditional = Object.keys(selectedRecipe).length > 0;
 
   return (
-    <div>
+    <div className="container">
       {conditional && (
         <div>
           <Recipe />

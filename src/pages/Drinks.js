@@ -33,10 +33,14 @@ const Drinks = ({ match: { params: { id } } }) => {
     setSelectedCategory(name);
   };
   return (
-    <div>
+    <div className="container align-items-center py-4">
       { !id && <Header title="Drinks" searchButton /> }
-      <div>
+      <div
+        style={ { gap: '8px', display: 'grid' } }
+        className="p-2  custom-grid"
+      >
         <button
+          className="button-filter col"
           type="button"
           data-testid="All-category-filter"
           onClick={ () => setDrinksByCategory([]) }
@@ -50,6 +54,7 @@ const Drinks = ({ match: { params: { id } } }) => {
             <button
               onClick={ () => getItensByCategory(item.strCategory) }
               type="button"
+              className="button-filter col"
               key={ index }
               data-testid={ `${item.strCategory}-category-filter` }
             >
@@ -57,7 +62,12 @@ const Drinks = ({ match: { params: { id } } }) => {
             </button>))
         }
       </div>
-      <div>
+      <div
+        style={ { gap: '16px' } }
+        className="
+        pt-2
+       custom-grid"
+      >
         { search.length > 0
           && (
             search.slice(0, MAX_RECIPES).map((item, index) => (

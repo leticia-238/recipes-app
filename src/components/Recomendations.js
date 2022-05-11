@@ -11,7 +11,7 @@ const Recomendations = () => {
     : [...meals].slice(0, sixthRecipe);
 
   return (
-    <div className="recomendations-container">
+    <div className="recomendations-container container-fluid d-flex">
       {
         firstSixRecipes.map((recipe, index) => (
           <div
@@ -19,18 +19,21 @@ const Recomendations = () => {
             data-testid={ `${index}-recomendation-card` }
             className="recomendations-card"
           >
-            <p
-              data-testid={ `${index}-recomendation-title` }
-            >
-              {selectedRecipe.type === 'meals' ? recipe.strDrink : recipe.strMeal}
 
-            </p>
             <img
-              width="300px"
+              width="250px"
               src={ selectedRecipe.type === 'meals'
                 ? recipe.strDrinkThumb : recipe.strMealThumb }
               alt=""
             />
+
+            <h4
+              className="p-2"
+              data-testid={ `${index}-recomendation-title` }
+            >
+              {selectedRecipe.type === 'meals' ? recipe.strDrink : recipe.strMeal}
+
+            </h4>
           </div>))
       }
     </div>

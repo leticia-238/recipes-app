@@ -74,6 +74,7 @@ const IngredientsCheckList = () => {
       }
       <button
         type="button"
+        className="button-recipe"
         data-testid="finish-recipe-btn"
         disabled={ isDisabled }
         onClick={ () => {
