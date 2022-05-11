@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap' ) ;
 
-
 :root {
 
   --text-color: #474747;
@@ -42,6 +41,7 @@
 .footer {
   bottom: 0;
   position: fixed;
+  transform: translate(calc(50vw - 50%));
 }
 
 .button-filter {

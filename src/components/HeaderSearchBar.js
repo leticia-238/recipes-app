@@ -82,47 +82,53 @@ const HeaderSearchBar = ({ searchInput }) => {
   };
 
   return (
-    <div>
-      <label htmlFor="ingredient">
-        Ingredient
-        <input
-          data-testid="ingredient-search-radio"
-          type="radio"
-          id="ingredient"
-          name="ingredient"
-          checked={ radioSearch === 'ingredient' }
-          onChange={ (e) => setRadioSearch(e.target.name) }
-        />
-      </label>
-      <label htmlFor="name">
-        Name
-        <input
-          data-testid="name-search-radio"
-          type="radio"
-          id="name"
-          name="name"
-          checked={ radioSearch === 'name' }
-          onChange={ (e) => setRadioSearch(e.target.name) }
-        />
-      </label>
-      <label htmlFor="first-letter">
-        First Letter
-        <input
-          data-testid="first-letter-search-radio"
-          type="radio"
-          id="first-letter"
-          name="first-letter"
-          checked={ radioSearch === 'first-letter' }
-          onChange={ (e) => setRadioSearch(e.target.name) }
-        />
-      </label>
-      <button
-        data-testid="exec-search-btn"
-        type="button"
-        onClick={ () => btnSearch() }
-      >
-        Search
-      </button>
+    <div className="container mx-auto">
+      <div className="row row-cols-3 d-flex">
+        <label htmlFor="ingredient" className="label-search col">
+          <input
+            data-testid="ingredient-search-radio"
+            type="radio"
+            id="ingredient"
+            name="ingredient"
+            className="input-radio"
+            checked={ radioSearch === 'ingredient' }
+            onChange={ (e) => setRadioSearch(e.target.name) }
+          />
+          Ingredient
+        </label>
+        <label htmlFor="name" className="label-search col">
+          <input
+            data-testid="name-search-radio"
+            type="radio"
+            id="name"
+            name="name"
+            className="input-radio"
+            checked={ radioSearch === 'name' }
+            onChange={ (e) => setRadioSearch(e.target.name) }
+          />
+          Name
+        </label>
+        <label htmlFor="first-letter" className="label-search col">
+          <input
+            data-testid="first-letter-search-radio"
+            type="radio"
+            id="first-letter"
+            name="first-letter"
+            className="input-radio"
+            checked={ radioSearch === 'first-letter' }
+            onChange={ (e) => setRadioSearch(e.target.name) }
+          />
+          First Letter
+        </label>
+        <button
+          data-testid="exec-search-btn"
+          type="button"
+          className="button-search"
+          onClick={ () => btnSearch() }
+        >
+          Search
+        </button>
+      </div>
     </div>
   );
 };
