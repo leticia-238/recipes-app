@@ -44,12 +44,20 @@ const IngredientsCheckList = () => {
 
   return (
     <section>
-      <h3>Ingredientes</h3>
+      <h3 className="p-2">Ingredientes</h3>
       {
         conditional
         && ingredientsList.map((ingredient, index) => (
-          <div key={ index } data-testid={ `${index}-ingredient-step` }>
+          <div
+            className="p-1"
+            key={ index }
+            data-testid={ `${index}-ingredient-step` }
+          >
             <ToggleButton
+              style={ {
+                gap: '8px',
+              } }
+              className="p-2 d-flex align-items-center"
               id={ `${index}-ingredient` }
               type="checkbox"
               variant="secondary"
@@ -68,7 +76,7 @@ const IngredientsCheckList = () => {
                 }
               } }
             >
-              Checked
+              {ingredient}
             </ToggleButton>
           </div>))
       }
