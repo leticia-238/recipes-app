@@ -12,8 +12,13 @@ const Explore = () => {
         title="Explore"
         searchButton={ false }
       />
-      <section>
+      <section
+        style={ { gap: '16px', height: '100vh' } }
+        className="container d-flex flex-column justify-content-center"
+      >
         <button
+          style={ { fontSize: '24px' } }
+          className="button-filter"
           data-testid="explore-foods"
           type="button"
           onClick={ () => history.push('/explore/foods') }
@@ -21,6 +26,8 @@ const Explore = () => {
           Explore Foods
         </button>
         <button
+          style={ { fontSize: '24px' } }
+          className="button-filter"
           data-testid="explore-drinks"
           type="button"
           onClick={ () => history.push('/explore/drinks') }

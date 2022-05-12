@@ -12,7 +12,7 @@ const Footer = () => {
     <footer
       data-testid="footer"
       // style={ { bottom: '0', position: 'fixed' } }
-      className="footer"
+      className="footer container mx-auto py-2"
     >
       <button
         type="button"

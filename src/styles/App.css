@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap' ) ;
+
 :root {
 
   --text-color: #474747;
 
   --subtitle: darkgray;
 
-  --bg-component: #f6f5f5;
+  --bg-component: #fcfafa;
 
   --border-color: #e6e6e6;
 
@@ -27,6 +29,30 @@
 * {
   font-family: Quicksand , sans-serif;
 }
+
+.custom-grid {
+  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  justify-content: center;
+}
+
+
+.footer {
+  bottom: 0;
+  position: fixed;
+  transform: translate(calc(50vw - 50%));
+}
+
+.button-filter {
+  background: var(--bg-color);
+  border: none;
+  border-radius: var(--bd-radius);
+  color: var(--btn-text-color);
+  font-weight: 600;
+  padding: 8px;
+}
+
 
 .page-title {
   text-transform: capitalize;
@@ -51,21 +77,64 @@
 
 .recomendations-container {
   display: flex;
+  gap: 8px;
   overflow: scroll;
-  width: 360px;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
 }
 
 .recomendations-card {
-  border: 1px solid black;
+  border: 1px solid var(--border-color);
+  border-radius: var(--bd-radius);
   height: 300px;
-  width: 1000px;
+  text-align: center;
 }
 
-.recipe-btn {
+section {
+  background-color: var(--bg-component);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 8px;
+}
+
+
+/* RECIPE */
+.recipe {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.recipe-title {
+  font-weight: 600;
+}
+
+.recipe-category {
+  color: var(--subtitle);
+  font-weight: 500;
+}
+
+.instructions {
+  line-height: 1.8;
+}
+
+
+.button-recipe {
+  background: var(--btn-recipe-color);
+  border: none;
+  border-radius: var(--bd-radius);
   bottom: 0;
-  height: 200px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  height: max-content;
+  left: 0;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  padding: 8px;
   position: fixed;
-  width: 100px;
+  transform: translate(calc(50vw - 50%));
+  width: 60%;
 }
 
 /*
@@ -119,3 +188,4 @@
     transform: rotate(-10deg);
   }
 }
+

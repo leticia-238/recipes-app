@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ButtonStartRecipe = ({ title = 'Start Recipe', toPath }) => (
   <button
-    className="recipe-btn"
+    className="button-recipe"
     data-testid="start-recipe-btn"
     onClick={ () => toPath() }
     type="button"

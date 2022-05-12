@@ -35,7 +35,7 @@ const Header = ({ title, searchButton }) => {
 
         {
           showSearchBar && (
-            <div className="container-fluid container-search">
+            <div className="container-fluid container-search py-4">
               <input
                 type="text"
                 data-testid="search-input"

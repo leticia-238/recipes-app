@@ -36,10 +36,12 @@ const FoodsDetails = ({ match: { params: { id } } }) => {
 
   return (
 
-    <div>
+    <div className="container">
 
       {conditional && (
-        <div>
+        <div
+          className=" mb-4"
+        >
           <Recipe />
           <IngredientsList />
           <Recomendations />
@@ -54,12 +56,19 @@ const FoodsDetails = ({ match: { params: { id } } }) => {
           />
         )
       }
-      <h1>Foods Details</h1>
-      <section className="recipe-video">
-        <video data-testid="video" width="400" height="400" src={ selectedRecipe.video }>
-          <track kind="captions" />
-        </video>
-      </section>
+
+      <iframe
+        style={ {
+          marginBottom: '60px',
+        } }
+        className="my-12"
+        width="100%"
+        height="300"
+        src={ selectedRecipe.video && selectedRecipe.video.replace('watch?v', 'embed/') }
+        title="Recipe video"
+        data-testid="video"
+      />
+
     </div>);
 };
 

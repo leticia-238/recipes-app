@@ -82,9 +82,9 @@ const HeaderSearchBar = ({ searchInput }) => {
   };
 
   return (
-    <div className="container">
-      <div className="row row-cols-3">
-        <label htmlFor="ingredient" className="label-search">
+    <div className="container mx-auto">
+      <div className="row row-cols-3 d-flex">
+        <label htmlFor="ingredient" className="label-search col">
           <input
             data-testid="ingredient-search-radio"
             type="radio"
@@ -96,7 +96,7 @@ const HeaderSearchBar = ({ searchInput }) => {
           />
           Ingredient
         </label>
-        <label htmlFor="name" className="label-search">
+        <label htmlFor="name" className="label-search col">
           <input
             data-testid="name-search-radio"
             type="radio"
@@ -108,7 +108,7 @@ const HeaderSearchBar = ({ searchInput }) => {
           />
           Name
         </label>
-        <label htmlFor="first-letter" className="label-search">
+        <label htmlFor="first-letter" className="label-search col">
           <input
             data-testid="first-letter-search-radio"
             type="radio"

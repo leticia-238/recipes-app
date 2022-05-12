@@ -35,41 +35,53 @@ const Foods = ({ match: { params: { id } } }) => {
   };
 
   return (
-    <div>
+    <>
       { !id && <Header title="Foods" searchButton /> }
-      <div>
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => {
-            setMealsByCategory([]);
-          } }
-        >
-          All
+      <div className="container align-items-center py-4 ">
 
-        </button>
-        {
-          category.slice(0, MAX_CATEGORY).map((item, index) => (
-            <button
-              onClick={ () => getItensByCategory(item.strCategory) }
-              type="button"
-              key={ index }
-              data-testid={ `${item.strCategory}-category-filter` }
-            >
-              { item.strCategory }
-            </button>))
-        }
-      </div>
-      <div>
-        { search.length > 0
+        <div
+          style={ { gap: '8px', display: 'grid' } }
+          className=" pb-2 custom-grid"
+        >
+          <button
+            className="button-filter col"
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ () => {
+              setMealsByCategory([]);
+            } }
+          >
+            All
+
+          </button>
+          {
+            category.slice(0, MAX_CATEGORY).map((item, index) => (
+              <button
+                className="button-filter col"
+                onClick={ () => getItensByCategory(item.strCategory) }
+                type="button"
+                key={ index }
+                data-testid={ `${item.strCategory}-category-filter` }
+              >
+                { item.strCategory }
+              </button>))
+          }
+        </div>
+        <div
+          style={ { gap: '16px' } }
+          className="
+        pt-2
+       custom-grid"
+        >
+          { search.length > 0
           && (
             search.slice(0, MAX_RECIPES).map((item, index) => (
               <CardRecipes key={ index } recipe={ item } index={ index } />
             ))
           )}
 
-        {
-          search.length === 0 && mealsByCategory.length === 0
+          {
+            search.length === 0 && mealsByCategory.length === 0
             && (
               meals.slice(0, MAX_RECIPES).map((item, index) => (
                 <CardRecipes
@@ -79,23 +91,25 @@ const Foods = ({ match: { params: { id } } }) => {
                   index={ index }
                 />
               )))
-        }
+          }
 
-        {
-          search.length === 0 && mealsByCategory.length > 0 ? (
-            mealsByCategory.slice(0, MAX_RECIPES).map((item, index) => (
-              <CardRecipes
-                key={ index }
-                recipe={ item }
-                index={ index }
-                toPath={ () => history.push(`/foods/${item.idMeal}`) }
-              />
-            )))
-            : ''
-        }
+          {
+            search.length === 0 && mealsByCategory.length > 0 ? (
+              mealsByCategory.slice(0, MAX_RECIPES).map((item, index) => (
+                <CardRecipes
+                  key={ index }
+                  recipe={ item }
+                  index={ index }
+                  toPath={ () => history.push(`/foods/${item.idMeal}`) }
+                />
+              )))
+              : ''
+          }
+        </div>
+
       </div>
       { !id && <Footer /> }
-    </div>
+    </>
 
   );
 };

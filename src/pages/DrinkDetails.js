@@ -35,10 +35,16 @@ const DrinksDetails = ({ match: { params: { id } } }) => {
   const conditional = Object.keys(selectedRecipe).length > 0;
 
   return (
-    <div>
+    <div
+      className="container m-4 mx-auto "
+    >
       {
         conditional && (
-          <div>
+          <div
+            style={ {
+              marginBottom: '60px',
+            } }
+          >
             <Recipe />
             <IngredientsList />
             <Recomendations />
@@ -54,7 +60,6 @@ const DrinksDetails = ({ match: { params: { id } } }) => {
         )
       }
 
-      <h1>Drinks Details</h1>
     </div>
   );
 };
