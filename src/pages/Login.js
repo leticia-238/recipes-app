@@ -103,6 +103,8 @@ const Login = () => {
           disabled={ isDisabled }
           onClick={ () => {
             setLocalStorage('user', { email });
+            localStorage.setItem('mealsToken', '1');
+            localStorage.setItem('cocktailsToken', '1');
             history.push('/foods');
           } }
         >
