@@ -39,7 +39,9 @@ const FoodsDetails = ({ match: { params: { id } } }) => {
     <div className="container">
 
       {conditional && (
-        <div>
+        <div
+          className=" mb-4"
+        >
           <Recipe />
           <IngredientsList />
           <Recomendations />
@@ -56,7 +58,10 @@ const FoodsDetails = ({ match: { params: { id } } }) => {
       }
 
       <iframe
-        className="my-4"
+        style={ {
+          marginBottom: '60px',
+        } }
+        className="my-12"
         width="100%"
         height="300"
         src={ selectedRecipe.video && selectedRecipe.video.replace('watch?v', 'embed/') }

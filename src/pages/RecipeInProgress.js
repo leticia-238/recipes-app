@@ -20,7 +20,11 @@ const RecipeInProgress = ({ match: { params: { id } } }) => {
   return (
     <div className="container">
       {conditional && (
-        <div>
+        <div
+          style={ {
+            marginBottom: '60px',
+          } }
+        >
           <Recipe />
           <IngredientsCheckList />
         </div>
