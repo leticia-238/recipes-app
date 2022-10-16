@@ -4,7 +4,7 @@
 
 &emsp;
 
-![app-preview](./screen-capture.gif)
+![app-preview](./app-preview.svg)
 
 ## Sobre o projeto
 
